@@ -1,0 +1,22 @@
+# Python virtual environments directories and package-generated directories
+bin
+build
+dist
+etc
+include
+lib
+lib64
+share
+*.egg-info
+pyvenv.cfg
+
+**/.vscode
+**.ipynb_checkpoints
+**/image
+**/fits
+
+*.zip
+*.ipynb
+*.tar.gz
+
+**/__pycache__
