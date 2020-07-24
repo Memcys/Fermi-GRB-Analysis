@@ -1,12 +1,11 @@
 from setuptools import setup, find_namespace_packages
 from pathlib import Path
-import fileinput
 import logging
-# from pkg.config import path
+# from grb.config import path
 
 logging.basicConfig(level=logging.WARNING)
 
-configpath = 'pkg/config/path.py'
+configpath = 'grb/config/path.py'
 p = Path()
 # path.ROOT = p.resolve()
 ROOT = f"Path('{p.resolve()}')"
@@ -60,14 +59,14 @@ with open(configpath, 'w') as c:
     c.writelines(lines)
 
 # prepared to install
-logging.info("\nBegin to install pkg")
+logging.info("\nBegin to install package: grb")
 with open('README.md', 'r') as ld:
     long_description = ld.read()
 
 setup(
     name='grb',
 
-    version = '0.7.23',  # July 13, 2020
+    version = '0.7.24',  # July 24, 2020
 
     description='Python package for certain Fermi LAT data analysis',
     long_description=long_description,
@@ -77,7 +76,7 @@ setup(
     author='Memcys',
 
     # Following https://packaging.python.org/guides/packaging-namespace-packages/#native-namespace-packages
-    packages=find_namespace_packages(include=['pkg.*']),
+    packages=find_namespace_packages(include=['grb.*']),
 
     classifiers=[
         "Programming Language :: Python :: 3",

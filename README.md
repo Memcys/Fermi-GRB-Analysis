@@ -104,7 +104,7 @@ jupyter lab /path/to/wherever/you/like
 - [x] 使用 sphinx 构建程序说明文档
 - [ ] 在 [Read the Docs](https://readthedocs.org) 上在线发布该文档（与本 GitHub repo 关联）
 - [ ] 程序有待中使用的部分中间数据文件的生成方式已被抹去，待补充
-
+- [ ] 利用 [sphinx](https://www.sphinx-doc.org) 构建本说明文档的使用说明
 
 参考文献
 =======
