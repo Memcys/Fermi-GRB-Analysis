@@ -23,8 +23,8 @@ for key, value in d.items():
 d['ROOT'] = ROOT
 
 while True:
-    key = input("\nPlease type the name (ROOT, FITS, TABLE, or IMAGE) to modify:\n(type c to finish and continue)\n")
-    if key == 'c':
+    key = input("\nPlease type the name (ROOT, FITS, TABLE, or IMAGE) to modify:\n(type 'c' or Enter to finish and continue)\n")
+    if key == 'c' or key == '':
         break
     elif key == 'ROOT':
         ROOT = input("Please assign the ROOT absolute path:\n")
@@ -32,7 +32,7 @@ while True:
         # check if ROOT exists:
         if not eval(d[key]).exists:
             logging.warning(f"{ROOT} not exists!\n")
-    elif key in d.keys:
+    elif key in d.keys():
         # key is one of 'FITS', 'TABLES' and 'IMAGES'
         datapath = input("Please assign the data path relative to ROOT (e.g., data/new):\n")
         d[key] = 'ROOT / ' + f"'{datapath}'"
