@@ -45,16 +45,30 @@ class Colname:
 
 class Rand(Colname):
     @staticmethod
-    def Calc_kappa(Eobs_repeat, z_repeat):
-        '''Eobs_repeat, z_repeat: 2d array of the same size'''
+    def Calc_kappa(Eobs_repeat, z_repeat, Omega_m: float=0.315):
+        """Return kappa caculated from observed energy and red-shift.
+
+        Parameters
+        ----------
+        Eobs_repeat : numpy.ndarray
+            Observed energy shape in (n, m), where n is the number of photon events, and m is the repeat time (m = 1 for non-repeat).
+        z_repeat : numpy.ndarray
+            red shift of the same shape as Eobs_repeat.
+        Omega_m : float, optional
+            matter density parameter in the Lambda-CDM model, by default 0.315, from Planck 2018 results. VI., DOI: 10.1051/0004-6361/201833910
+
+        Returns
+        -------
+        numpy.ndarray
+            kappa of the same shape as z_repeat (and Eobs_repeat).
+        """
+        KAPPA: str = Colname.KAPPA
+        Z: str = Colname.Z
         ELOW = 0. * u.GeV
         H0 = (67.4 * u.km / u.s / u.Mpc).to(1/u.s)
         s: float = 1.
-        Omega_m: float = 0.315
         Omega_L: float = 1 - Omega_m
         
-        KAPPA: str = Colname.KAPPA
-        Z: str = Colname.Z
         
         factor1 = s * (Eobs_repeat - ELOW) / H0
     
@@ -82,15 +96,36 @@ class Rand(Colname):
     
     @staticmethod
     def Calc_Ts(row_len: int, sz: int, rho: int, DTtsf, kappa, E_LVs):
+        """Return the test function T.
+
+        Parameters
+        ----------
+        row_len : int
+            Number of total candidate Lorentz Violation parameters; also row length of T, i.e., T.shape[0].
+        sz : int
+            Number of photon events.
+        rho : int
+            constant rho in the test function T.
+        DTtsf : numpy.ndarray
+            observed time over (1 + z), i.e., $\Delta T_{obs} / (1 + z)$.
+        kappa : numpy.ndarray
+            kappa of the same shape as DTtsf.
+        E_LVs : numpy.ndarray
+            candidate Lorentz Violation parameters
+
+        Returns
+        -------
+        numpy.ndarray
+            Values of the test function
+        """        
 #         @lru_cache(maxsize=50)    # unhashable type: np.ndarray
         @jit(forceobj=True)
         def calcT(N, rho, DTtsf, kappa, E_LV):
             l = N - rho
-#             res1 = (N - rho) * np.log(rho)
             t_in = DTtsf - kappa / E_LV
             t_in.sort()        # sort ascending
             tau = np.sum(t_in[:, -rho:] - t_in[:, :rho], axis=1) / l
-            res1 = np.log(tau)    # Test only!
+            res1 = np.log(tau)
             res2 = np.sum(np.log(t_in[:, rho:] - t_in[:, :-rho]), axis=1) / l
             result = res1 - res2
             return result
@@ -106,7 +141,28 @@ class Rand(Colname):
         Ts = _calcTs(row_len, sz, rho, DTtsf, kappa, E_LVs)
         return Ts
 
-    def __init__(self, Set, Emax, Emin, power, E_LVs, rho: int=5, repeat: int=100000, E_LV_sz: int=1000):        
+    def __init__(self, Set, Emax: float, Emin: float, power: float, E_LVs, rho: int=5, repeat: int=100000, E_LV_sz: int=1000):
+        """Initialize the instance.
+
+        Parameters
+        ----------
+        Set : astropy.table.table.Table
+            The set of GRBs.
+        Emax : float
+            Maximum of the energy range.
+        Emin : float
+            Minimum of the energy range.
+        power : float
+            The parameter in the power law.
+        E_LVs : numpy.ndarray
+            Candidate Lorentz Violation parameters.
+        rho : int, optional
+            Constant rho in the test function, by default 5.
+        repeat : int, optional
+            Size of random samples, by default 100000.
+        E_LV_sz : int, optional
+            Size of random candidate Lorentz Violation parameters, by default 1000.
+        """        
         Set_np = Set[['z', self.DTOBS]].to_pandas().to_numpy()
         z = Set_np[:, 0]        
         DTobs = Set_np[:, 1]
@@ -169,6 +225,8 @@ class Rand(Colname):
                    for sigma in sigmas]
 
     def randPlot(self):
+        """Plot n-sigma regions, where n's are 1, 3, 5.
+        """        
         plt.fill_between(self.E_LVs, self.ci[2][0], self.ci[2][1], alpha=0.4, label=r'$5 \sigma$')
         plt.fill_between(self.E_LVs, self.ci[1][0], self.ci[1][1], alpha=0.6, label=r'$3 \sigma$')
         plt.fill_between(self.E_LVs, self.ci[0][0], self.ci[0][1], alpha=0.8, label=r'$1 \sigma$')
@@ -179,10 +237,10 @@ class FITSLoad(Colname):
 
         Parameters
         ----------
-        grbs : pd.DataFrame
-            information of GRBs, including GCNNAME, ENERGY and TIME
+        grbs : pandas.core.frame.DataFrame
+            Information of GRBs, including GCNNAME, ENERGY and TIME.
         in_dir : pathlib.Path or str
-            input directory that contains GRB FITS files
+            Input directory that contains GRB FITS files.
         """
         @jit(forceobj=True)
         def fileNames(grbs, in_dir):
@@ -254,12 +312,12 @@ class PHTable(FITSLoad, Rand):
 
         Parameters
         ----------
-        grbs : pd.DataFrame
-            information of GRBs, including GCNNAME, ENERGY and TIME
+        grbs : pandas.core.frame.DataFrame
+            information of GRBs, including GCNNAME, ENERGY and TIME.
         in_dir : pathlib.Path or str
-            input directory that contains GRB FITS files
+            input directory that contains GRB FITS files.
         erange : astropy.units.quantity.Quantity
-            array of 5 floats for 4 energy ranges
+            array of 5 end points for 4 energy ranges.
         """
         def tableCalc(ph_table_all):
             '''Convert MeV to GeV of ENERGY'''
@@ -277,7 +335,7 @@ class PHTable(FITSLoad, Rand):
             Eobs_repeat = ph_table_all[self.ENERGY].reshape([1, sz])
             z_repeat = ph_table_all[self.Z].reshape([1, sz])
 
-            ph_table_all[DTTSF] = ph_table_all[self.DTOBS] / (1 + ph_table_all[self.Z])
+            # ph_table_all[DTTSF] = ph_table_all[self.DTOBS] / (1 + ph_table_all[self.Z])
             ph_table_all[self.KAPPA] = Calc_kappa(Eobs_repeat=Eobs_repeat, z_repeat=z_repeat)[0]
 
         FITSLoad.__init__(self, grbs, in_dir)
@@ -301,12 +359,22 @@ class PHTable(FITSLoad, Rand):
     def _repr_html_(self):
         return self.table._repr_html_()
         
-    def save(self, out_dir: str='../data/', fname: str='ph-table-all', date: bool=True, overwrite=True):
+    def save(self, out_dir: str='../data/', fname: str='ph-table-all', date: bool=True):
+        """Save the instance as pickle format, in order to reuse the instance without repeated calculations.
+
+        Parameters
+        ----------
+        out_dir : str, optional
+            Output directory, by default '../data/'
+        fname : str, optional
+            Output file name, by default 'ph-table-all'
+        date : bool, optional
+            Whether to include date in the file name, by default True
+        """        
         filename = out_dir + fname
         if date:
             filename += '-' + str(datetime.date.today())
-#         fullname = filename + '.ecsv'
-#         self.table.write(fullname, overwrite=overwrite)
+
         with open(filename) as f:
             pickle.dump(self, f, pickle.HIGHEST_PROTOCOL)
         try:
@@ -316,6 +384,15 @@ class PHTable(FITSLoad, Rand):
             print(e)
             
     def regPlot(self, binmethod=np.logspace(0., 1.0), figname: str=''):
+        """Plot the histogram of Data Set I and the regression line.
+
+        Parameters
+        ----------
+        binmethod : numpy.ndarray, optional
+            Bin method of the histogram plot, by default np.logspace(0., 1.0).
+        figname : str, optional
+            Output file name of the figure, by default '' (and not output to file).
+        """        
         fig, ax = plt.subplots()
         weight = binmethod[1:] - binmethod[:-1]
         # ‘doane’: An improved version of Sturges’ estimator that works better with non-normal datasets.
@@ -344,7 +421,6 @@ class PHTable(FITSLoad, Rand):
         a = popt[0]
         b = popt[1]
         fit_line = r"fit line: $\log_{{10}} (y) = {b:.2f} \log_{{10}} (x) + {a:.2f}$".format(b=b, a=a)
-#         fit_line = r"fit line: $\log_{10} (y) = $" + str(round(popt[1], 2)) + r"$\log_{10} (x) + $" + str(round(popt[0], 2))
         ax.plot(bin_edges, fit_func(bin_edges, *popt), label=fit_line)
         sns.scatterplot(E_center, n, label='upper center of each histogram')
         
@@ -360,7 +436,23 @@ class PHTable(FITSLoad, Rand):
         self.POWER = popt[1]
         return fig, popt, pcov
     
-    def _scatterPlot(self, ph_class, label, alpha: float=0.75):
+    def scatterPlot_(self, ph_class, label: str, alpha: float=0.75):
+        """Individual scatter plot for each data set.
+
+        Parameters
+        ----------
+        ph_class : astropy.table.table.Table
+            All photon events.
+        label : str
+            Label in the plot.
+        alpha : float, optional
+            Alpha of the plot, by default 0.75
+
+        Returns
+        -------
+        matplotlib.figure.Figure
+            $\Delta t_{obs}$ / (1 + z)$ versus $\kappa$ plot.
+        """        
         fig, ax = plt.subplots()
         
         ax.scatter(x=ph_class[self.KAPPA], y=ph_class[self.DTTSF], label=label, alpha=alpha)
@@ -371,16 +463,35 @@ class PHTable(FITSLoad, Rand):
 
         return fig
 
-    def scatterPlots(self, labels: list=['Data Set ' + i for i in ['I', 'II', 'III', 'IV', "IV'"]]):
+    def scatterPlots(self, labels = ['Data Set ' + i for i in ['I', 'II', 'III', 'IV', "IV'"]]):        
+        """Scatter plots of all data sets.
+
+        Parameters
+        ----------
+        labels : list of str, optional
+            Labels in the plots, by default ['Data Set ' + i for i in ['I', 'II', 'III', 'IV', "IV'"]]
+
+        Returns
+        -------
+        matplotlib.figure.Figure
+            $\Delta t_{obs}$ / (1 + z)$ versus $\kappa$ plots.
+        """        
         figs = []
-        figs.append(self._scatterPlot(self.classI, labels[0], alpha=0.5))
-        figs.append(self._scatterPlot(self.classII, labels[1]))
-        figs.append(self._scatterPlot(self.classIII, labels[2]))
-        figs.append(self._scatterPlot(self.classIV, labels[3]))
-        figs.append(self._scatterPlot(self.classIV_less, labels[4]))
+        figs.append(self.scatterPlot_(self.classI, labels[0], alpha=0.5))
+        figs.append(self.scatterPlot_(self.classII, labels[1]))
+        figs.append(self.scatterPlot_(self.classIII, labels[2]))
+        figs.append(self.scatterPlot_(self.classIV, labels[3]))
+        figs.append(self.scatterPlot_(self.classIV_less, labels[4]))
         return figs
             
-    def checkPower(self):
+    def checkPower(self) -> bool:        
+        """Check if the power has been assigned.
+
+        Returns
+        -------
+        bool
+            True if self.POWER has been assigned; False otherwide.
+        """        
         if self.POWER is np.nan:
             print("POWER not available! Please run .regplot() first.")
             return False
@@ -388,6 +499,21 @@ class PHTable(FITSLoad, Rand):
             return True
         
     def T(self, Set, rho: int, return_extr: bool=False):
+        """Calculate the test function.
+
+        Parameters
+        ----------
+        Set : astropy.table.table.Table
+            The set of all photon events.
+        rho : int
+            Constant parameter in the test function.
+        return_extr : bool, optional
+            Whether to return the extrema, by default False
+
+        Returns
+        -------
+        numpy.ndarray
+        """        
         Set_np = Set[[self.DTTSF, self.KAPPA]].to_pandas().to_numpy()
         DTtsf = Set_np[:, 0]
         kappa = Set_np[:, 1]
@@ -411,6 +537,30 @@ class PHTable(FITSLoad, Rand):
             return (Ts,)
         
     def TEPlot(self, Set, rho: int, repeat: int, Emax: float, Emin: float, label: str, return_extr: bool):
+        """Test function versus Energy plot.
+
+        Parameters
+        ----------
+        Set : astropy.table.table.Table
+            All photon events.
+        rho : int
+            Constant parameter in the test function.
+        repeat : int
+            Number of random samples.
+        Emax : float
+            Maximum of the energy range.
+        Emin : float
+            Minimum of the energy range.
+        label : str
+            Label in the T-E plot.
+        return_extr : bool
+            Whether to return the extrama.
+
+        Returns
+        -------
+        tuple of (matplotlib.figure.Figure, None or dict)
+            return fig, and dict of extrama (if any).
+        """        
         if not self.checkPower():
             return np.nan
         
@@ -430,18 +580,72 @@ class PHTable(FITSLoad, Rand):
         return (fig, Ts[1:])
 
     def randPlotI(self, rho: int=5, repeat: int=100000, label: str='Data Set I', return_extr: bool=False):
+        """T versus E plot for Data Set I.
+
+        Parameters
+        ----------
+        rho : int, optional
+            Constant parameter in the test function, by default 5.
+        repeat : int, optional
+            Number of random samples, by default 100000.
+        label : str, optional
+            Label in the plot, by default 'Data Set I'.
+        return_extr : bool, optional
+            Whether to return the extrama, by default False.
+
+        Returns
+        -------
+        tuple of (matplotlib.figure.Figure, None or dict)
+            return fig, and dict of extrama (if any).
+        """        
         Emax = self.erange[1]
         Emin = self.erange[0]
         Set = self.classI
         return self.TEPlot(Set=Set, rho=rho, repeat=repeat, Emax=Emax, Emin=Emin, label=label, return_extr=return_extr)
             
     def randPlotII(self, rho: int=5, repeat: int=100000, label: str='Data Set II', return_extr: bool=False):
+        """T versus E plot for Data Set II.
+
+        Parameters
+        ----------
+        rho : int, optional
+            Constant parameter in the test function, by default 5.
+        repeat : int, optional
+            Number of random samples, by default 100000.
+        label : str, optional
+            Label in the plot, by default 'Data Set II'.
+        return_extr : bool, optional
+            Whether to return the extrama, by default False.
+
+        Returns
+        -------
+        tuple of (matplotlib.figure.Figure, None or dict)
+            return fig, and dict of extrama (if any).
+        """
         Emax = self.erange[4]
         Emin = self.erange[1]
         Set = self.classII
         return self.TEPlot(Set=Set, rho=rho, repeat=repeat, Emax=Emax, Emin=Emin, label=label, return_extr=return_extr)
             
     def randPlotIII(self, rho: int=5, repeat: int=100000, label: str='Data Set III', return_extr: bool=False):
+        """T versus E plot for Data Set III.
+
+        Parameters
+        ----------
+        rho : int, optional
+            Constant parameter in the test function, by default 5.
+        repeat : int, optional
+            Number of random samples, by default 100000.
+        label : str, optional
+            Label in the plot, by default 'Data Set III'.
+        return_extr : bool, optional
+            Whether to return the extrama, by default False.
+
+        Returns
+        -------
+        tuple of (matplotlib.figure.Figure, None or dict)
+            return fig, and dict of extrama (if any).
+        """
         Emax = self.erange[4]
         Emin = self.erange[2]
         Set = self.classIII
@@ -450,6 +654,26 @@ class PHTable(FITSLoad, Rand):
     def randPlotIV(self, rho: int=5, repeat: int=100000,
                    label: str='Data Set IV',
                    less: bool=False, return_extr: bool=False):
+        """T versus E plot for Data Set IV or IV' (IV_less).
+
+        Parameters
+        ----------
+        rho : int, optional
+            Constant parameter in the test function, by default 5.
+        repeat : int, optional
+            Number of random samples, by default 100000.
+        label : str, optional
+            Label in the plot, by default 'Data Set IV'.
+        less : bool, optional
+            Plot for Data Set IV_less or IV.
+        return_extr : bool, optional
+            Whether to return the extrama, by default False.
+
+        Returns
+        -------
+        tuple of (matplotlib.figure.Figure, None or dict)
+            return fig, and dict of extrama (if any).
+        """
         if not self.checkPower():
             return np.nan
         

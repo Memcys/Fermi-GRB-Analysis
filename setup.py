@@ -24,14 +24,14 @@ for key, value in d.items():
 d['ROOT'] = ROOT
 
 while True:
-    v = input("\nPlease type the name (ROOT, FITS, TABLE, or IMAGE) to modify:\n(type c to finish and continue)\n")
-    if v == 'c':
+    key = input("\nPlease type the name (ROOT, FITS, TABLE, or IMAGE) to modify:\n(type c to finish and continue)\n")
+    if key == 'c':
         break
-    elif v == 'ROOT':
+    elif key == 'ROOT':
         ROOT = input("Please assign the ROOT absolute path:\n")
-        d[v] = f"Path('{ROOT}')"
+        d[key] = f"Path('{ROOT}')"
         # check if ROOT exists:
-        if not eval(d[v]).exists:
+        if not eval(d[key]).exists:
             logging.warning(f"{ROOT} not exists!\n")
     elif key in d.keys:
         # key is one of 'FITS', 'TABLES' and 'IMAGES'
@@ -60,13 +60,14 @@ with open(configpath, 'w') as c:
     c.writelines(lines)
 
 # prepared to install
+logging.info("\nBegin to install pkg")
 with open('README.md', 'r') as ld:
     long_description = ld.read()
 
 setup(
     name='grb',
 
-    version = '0.7.13',  # July 13, 2020
+    version = '0.7.23',  # July 13, 2020
 
     description='Python package for certain Fermi LAT data analysis',
     long_description=long_description,

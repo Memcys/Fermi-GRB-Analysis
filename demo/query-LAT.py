@@ -6,7 +6,7 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.5.1
+#       jupytext_version: 1.5.2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -21,8 +21,8 @@ import pandas as pd
 
 # pkg modules
 
-from pkg.config import path
-from pkg.lat.query import Query
+from grb.config import path
+from grb.lat.query import Query
 
 # Logging
 

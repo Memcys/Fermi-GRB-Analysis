@@ -5,20 +5,24 @@
 
 
 项目文件说明
-============
-- `data`: 设计用于存放数据图表。具体可由 `pkg/config.py` 或运行 `setup.py` 时指定（参见[安装 `pkg` 包](#安装-pkg-包)）
-- `demo`: 使用 `pkg` 的示例代码（**使用入口**）。使用时建议将 `.py` 格式转化为 `.ipynb` （参见 [Jupytext 使用说明](#Jupytext-使用说明)
-    - `main.py`: 调用 `pkg/lat/analysis.py` 实现主要的数据分析和可视化
-    - `query-LAT.py`: 调用 `pkg/lat/query.py` 下载 *Fermi* LAT 数据
-- `pkg`: 具体实现的底层代码
+===========
+- `data`: 设计用于存放数据图表。具体可由 `grb/config.py` 或运行 `setup.py` 时指定（参见[安装 `grb` 包](#安装-grb-包)）
+- `demo`: 使用 `grb` 的示例代码（**使用入口**）。使用时建议将 `.py` 格式转化为 `.ipynb` （参见 [Jupytext 使用说明](#Jupytext-使用说明)
+    - `main.py`: 调用 `grb/lat/analysis.py` 实现主要的数据分析和可视化
+    - `query-LAT.py`: 调用 `grb/lat/query.py` 下载 *Fermi* LAT 数据
+- `docs`: 说明文档
+    - `source`: 利用 [sphinx](https://www.sphinx-doc.org) 构建说明文档的源文件
+    - `_build`: `sphinx` 构建的说明文档
+        - `html`: `sphinx` 构建的 `html` 格式的说明文档。首页文件为其中的 `index.html`.
+- `grb`: 具体实现的底层代码
     - `config`: 配置相关模块
         - 'path.py`: 用于指定统一的数据图表路径，包括 `ROOT`, `FITS`, `TABLE` 和 `IMAGE`
-        - `__init__.py`: 使 `pkg` 成为 [namespace package](https://docs.python.org/3/tutorial/modules.html#packages) 的模块的 *必要*文件
+        - `__init__.py`: 使 `grb` 成为 [namespace package](https://docs.python.org/3/tutorial/modules.html#packages) 的模块的 *必要*文件
     - `lat`: *Fermi* LAT 相关模块
         - `analysis.py`: 数据分析和可视化的具体实现
         - `query.py`: 用于下载 *Fermi* LAT 数据
         - `__init__.py`
-- `setup.py`: 安装本地包 `pkg` 的设置文件
+- `setup.py`: 安装本地包 `grb` 的设置文件
 
 `data/fits` 中的数据可由 `demo/query-LAT.py` 下载保存。示例中的数据可以从 https://github.com/Memcys/LAT-GRB-data 或其 [release](https://github.com/Memcys/LAT-GRB-data/releases/) 下载。下载（并解压）后可以通过 `cp` 或 `ln` 放入本项目的 `data/fits` 文件夹中。
 
@@ -44,7 +48,7 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 当然，也可以使用 Conda 创建和管理虚拟环境。可参考 https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html.
 
 
-### 安装 `pkg` 包
+### 安装 `grb` 包
 在 `setup.py` 同级目录 (`ROOT`) 下，命令行运行
 ```
 python setup.py install
@@ -57,11 +61,11 @@ python setup.py install
 
 以及当前工作路径。
 
-另外，也可以手动修改 `pkg/config/path.py` 后安装或更新（方法同安装） `pkg` 包。
+另外，也可以手动修改 `grb/config/path.py` 后安装或更新（方法同安装） `grb` 包。
 
-此后可以在 Python 代码中通过 `from pkg import config` 等类似语法导入该包的模块。也可通过
+此后可以在 Python 代码中通过 `from grb import config` 等类似语法导入该包的模块。也可通过
 ```
-pip uninstall pkg
+pip uninstall grb
 ```
 卸载该包。
 
@@ -89,10 +93,16 @@ jupyter lab /path/to/wherever/you/like
 使用其他编辑器/IDE 的方法不赘述。
 
 
+浏览说明文档
+==========
+请使用浏览器打开文件 `docs/_build/html/index.html`.
+
+
 ***
 ## 待办
-- [ ] 添加必要的 [docstring](https://numpydoc.readthedocs.io/en/latest/format.html)
-- [ ] 使用 sphinx 构建程序说明文档
+- [x] 添加必要的 [docstring](https://numpydoc.readthedocs.io/en/latest/format.html)
+- [x] 使用 sphinx 构建程序说明文档
+- [ ] 在 [Read the Docs](https://readthedocs.org) 上在线发布该文档（与本 GitHub repo 关联）
 - [ ] 程序有待中使用的部分中间数据文件的生成方式已被抹去，待补充
 
 

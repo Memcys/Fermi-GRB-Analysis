@@ -1,0 +1,871 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>grb.lat package &mdash; Fermi GRB Analysis  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Jupytext" href="jupytext.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Fermi GRB Analysis
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jupytext.html">Jupytext</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">grb.lat package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-grb.lat.analysis">grb.lat.analysis module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-grb.lat.query">grb.lat.query module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-grb.lat">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Fermi GRB Analysis</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>grb.lat package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/grb.lat.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="grb-lat-package">
+<h1>grb.lat package<a class="headerlink" href="#grb-lat-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-grb.lat.analysis">
+<span id="grb-lat-analysis-module"></span><h2>grb.lat.analysis module<a class="headerlink" href="#module-grb.lat.analysis" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="grb.lat.analysis.Colname">
+<em class="property">class </em><code class="sig-prename descclassname">grb.lat.analysis.</code><code class="sig-name descname">Colname</code><a class="reference internal" href="_modules/grb/lat/analysis.html#Colname"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.analysis.Colname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Provide unified column names</p>
+<dl class="py attribute">
+<dt id="grb.lat.analysis.Colname.COLS">
+<code class="sig-name descname">COLS</code><em class="property"> = ['ENERGY', 'TIME']</em><a class="headerlink" href="#grb.lat.analysis.Colname.COLS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.analysis.Colname.DTOBS">
+<code class="sig-name descname">DTOBS</code><em class="property"> = 'DTobs'</em><a class="headerlink" href="#grb.lat.analysis.Colname.DTOBS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.analysis.Colname.DTTSF">
+<code class="sig-name descname">DTTSF</code><em class="property"> = 'DTtsf'</em><a class="headerlink" href="#grb.lat.analysis.Colname.DTTSF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.analysis.Colname.EIN">
+<code class="sig-name descname">EIN</code><em class="property"> = 'Ein'</em><a class="headerlink" href="#grb.lat.analysis.Colname.EIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.analysis.Colname.ENERGY">
+<code class="sig-name descname">ENERGY</code><em class="property"> = 'ENERGY'</em><a class="headerlink" href="#grb.lat.analysis.Colname.ENERGY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.analysis.Colname.KAPPA">
+<code class="sig-name descname">KAPPA</code><em class="property"> = 'kappa'</em><a class="headerlink" href="#grb.lat.analysis.Colname.KAPPA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.analysis.Colname.NAME">
+<code class="sig-name descname">NAME</code><em class="property"> = 'NAME'</em><a class="headerlink" href="#grb.lat.analysis.Colname.NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.analysis.Colname.TIME">
+<code class="sig-name descname">TIME</code><em class="property"> = 'TIME'</em><a class="headerlink" href="#grb.lat.analysis.Colname.TIME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.analysis.Colname.TOBS">
+<code class="sig-name descname">TOBS</code><em class="property"> = 'Tobs'</em><a class="headerlink" href="#grb.lat.analysis.Colname.TOBS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.analysis.Colname.TPEAK">
+<code class="sig-name descname">TPEAK</code><em class="property"> = 'Tpeak'</em><a class="headerlink" href="#grb.lat.analysis.Colname.TPEAK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.analysis.Colname.Z">
+<code class="sig-name descname">Z</code><em class="property"> = 'z'</em><a class="headerlink" href="#grb.lat.analysis.Colname.Z" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="grb.lat.analysis.FITSLoad">
+<em class="property">class </em><code class="sig-prename descclassname">grb.lat.analysis.</code><code class="sig-name descname">FITSLoad</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">grbs</span></em>, <em class="sig-param"><span class="n">in_dir</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/analysis.html#FITSLoad"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.analysis.FITSLoad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#grb.lat.analysis.Colname" title="grb.lat.analysis.Colname"><code class="xref py py-class docutils literal notranslate"><span class="pre">grb.lat.analysis.Colname</span></code></a></p>
+<p>Load data of given GRBs from in_dir.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grbs</strong> (<em>pandas.core.frame.DataFrame</em>) – Information of GRBs, including GCNNAME, ENERGY and TIME.</p></li>
+<li><p><strong>in_dir</strong> (<em>pathlib.Path</em><em> or </em><em>str</em>) – Input directory that contains GRB FITS files.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="grb.lat.analysis.PHTable">
+<em class="property">class </em><code class="sig-prename descclassname">grb.lat.analysis.</code><code class="sig-name descname">PHTable</code><span class="sig-paren">(</span><em class="sig-param">grbs</em>, <em class="sig-param">in_dir</em>, <em class="sig-param">erange=&lt;Quantity [  1.</em>, <em class="sig-param">10.</em>, <em class="sig-param">20.</em>, <em class="sig-param">40.</em>, <em class="sig-param">150.] GeV&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/analysis.html#PHTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.analysis.PHTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#grb.lat.analysis.FITSLoad" title="grb.lat.analysis.FITSLoad"><code class="xref py py-class docutils literal notranslate"><span class="pre">grb.lat.analysis.FITSLoad</span></code></a>, <a class="reference internal" href="#grb.lat.analysis.Rand" title="grb.lat.analysis.Rand"><code class="xref py py-class docutils literal notranslate"><span class="pre">grb.lat.analysis.Rand</span></code></a></p>
+<p>Load GRBs and do calculations and convertings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grbs</strong> (<em>pandas.core.frame.DataFrame</em>) – Information of GRBs, including GCNNAME, ENERGY and TIME.</p></li>
+<li><p><strong>in_dir</strong> (<em>pathlib.Path</em><em> or </em><em>str</em>) – Input directory that contains GRB FITS files.</p></li>
+<li><p><strong>erange</strong> (<em>astropy.units.quantity.Quantity</em>) – Array of 5 end points for 4 energy ranges.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="grb.lat.analysis.PHTable.T">
+<code class="sig-name descname">T</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Set</span></em>, <em class="sig-param"><span class="n">rho</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">return_extr</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/analysis.html#PHTable.T"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.analysis.PHTable.T" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the test function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Set</strong> (<em>astropy.table.table.Table</em>) – The set of all photon events.</p></li>
+<li><p><strong>rho</strong> (<em>int</em>) – Constant parameter in the test function.</p></li>
+<li><p><strong>return_extr</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to return the extrema, by default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>values of the test function.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}T_\rho = \frac{\sum_{i=1}^{N-\rho} \log[\bar{t}_\rho / (t_{i+\rho} - t_i)]}{N - \rho}, \\\end{split}\\\bar{t}_\rho = \frac{\sum_{i=1}^{N-\rho} (t_{t+\rho} - t_i)}{N - \rho}.\end{aligned}\end{align} \]</div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#grb.lat.analysis.Rand.Calc_Ts" title="grb.lat.analysis.Rand.Calc_Ts"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Rand.Calc_Ts()</span></code></a></dt><dd><p>Return the test function T of shape (row_len, sz).</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.analysis.PHTable.TEPlot">
+<code class="sig-name descname">TEPlot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Set</span></em>, <em class="sig-param"><span class="n">rho</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">repeat</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">Emax</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">Emin</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">label</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">return_extr</span><span class="p">:</span> <span class="n">bool</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/analysis.html#PHTable.TEPlot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.analysis.PHTable.TEPlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test function versus Energy plot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Set</strong> (<em>astropy.table.table.Table</em>) – All photon events.</p></li>
+<li><p><strong>rho</strong> (<em>int</em>) – Constant parameter in the test function.</p></li>
+<li><p><strong>repeat</strong> (<em>int</em>) – Number of random samples.</p></li>
+<li><p><strong>Emax</strong> (<em>float</em>) – Maximum of the energy range.</p></li>
+<li><p><strong>Emin</strong> (<em>float</em>) – Minimum of the energy range.</p></li>
+<li><p><strong>label</strong> (<em>str</em>) – Label in the T-E plot.</p></li>
+<li><p><strong>return_extr</strong> (<em>bool</em>) – Whether to return the extrama.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return fig, and dict of extrama (if any).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple of (matplotlib.figure.Figure, None or dict)</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#grb.lat.analysis.PHTable.T" title="grb.lat.analysis.PHTable.T"><code class="xref py py-meth docutils literal notranslate"><span class="pre">T()</span></code></a></dt><dd><p>Test function.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.analysis.PHTable.checkPower">
+<code class="sig-name descname">checkPower</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/grb/lat/analysis.html#PHTable.checkPower"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.analysis.PHTable.checkPower" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the power has been assigned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if self.POWER has been assigned; False otherwide.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Power Law:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}\frac{\mathrm{d} N}{\mathrm{d} E} \propto \left( \frac{E}{E_\text{ref}} \right)^{-\alpha}, \\\end{split}\\E_\text{ref} = 1.0 \text{GeV}\end{aligned}\end{align} \]</div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.analysis.PHTable.randPlotI">
+<code class="sig-name descname">randPlotI</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rho</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">5</span></em>, <em class="sig-param"><span class="n">repeat</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">100000</span></em>, <em class="sig-param"><span class="n">label</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Data Set I'</span></em>, <em class="sig-param"><span class="n">return_extr</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/analysis.html#PHTable.randPlotI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.analysis.PHTable.randPlotI" title="Permalink to this definition">¶</a></dt>
+<dd><p>T versus E plot for Data Set I.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rho</strong> (<em>int</em><em>, </em><em>optional</em>) – Constant parameter in the test function, by default 5.</p></li>
+<li><p><strong>repeat</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of random samples, by default 100000.</p></li>
+<li><p><strong>label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label in the plot, by default ‘Data Set I’.</p></li>
+<li><p><strong>return_extr</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to return the extrama, by default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return fig, and dict of extrama (if any).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple of (matplotlib.figure.Figure, None or dict)</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#grb.lat.analysis.PHTable.TEPlot" title="grb.lat.analysis.PHTable.TEPlot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TEPlot()</span></code></a></dt><dd><p>T versus E plot for individual data set.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.analysis.PHTable.randPlotII">
+<code class="sig-name descname">randPlotII</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rho</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">5</span></em>, <em class="sig-param"><span class="n">repeat</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">100000</span></em>, <em class="sig-param"><span class="n">label</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Data Set II'</span></em>, <em class="sig-param"><span class="n">return_extr</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/analysis.html#PHTable.randPlotII"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.analysis.PHTable.randPlotII" title="Permalink to this definition">¶</a></dt>
+<dd><p>T versus E plot for Data Set II.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rho</strong> (<em>int</em><em>, </em><em>optional</em>) – Constant parameter in the test function, by default 5.</p></li>
+<li><p><strong>repeat</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of random samples, by default 100000.</p></li>
+<li><p><strong>label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label in the plot, by default ‘Data Set II’.</p></li>
+<li><p><strong>return_extr</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to return the extrama, by default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return fig, and dict of extrama (if any).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple of (matplotlib.figure.Figure, None or dict)</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#grb.lat.analysis.PHTable.TEPlot" title="grb.lat.analysis.PHTable.TEPlot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TEPlot()</span></code></a></dt><dd><p>T versus E plot for individual data set.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.analysis.PHTable.randPlotIII">
+<code class="sig-name descname">randPlotIII</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rho</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">5</span></em>, <em class="sig-param"><span class="n">repeat</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">100000</span></em>, <em class="sig-param"><span class="n">label</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Data Set III'</span></em>, <em class="sig-param"><span class="n">return_extr</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/analysis.html#PHTable.randPlotIII"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.analysis.PHTable.randPlotIII" title="Permalink to this definition">¶</a></dt>
+<dd><p>T versus E plot for Data Set III.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rho</strong> (<em>int</em><em>, </em><em>optional</em>) – Constant parameter in the test function, by default 5.</p></li>
+<li><p><strong>repeat</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of random samples, by default 100000.</p></li>
+<li><p><strong>label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label in the plot, by default ‘Data Set III’.</p></li>
+<li><p><strong>return_extr</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to return the extrama, by default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return fig, and dict of extrama (if any).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple of (matplotlib.figure.Figure, None or dict)</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#grb.lat.analysis.PHTable.TEPlot" title="grb.lat.analysis.PHTable.TEPlot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TEPlot()</span></code></a></dt><dd><p>T versus E plot for individual data set.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.analysis.PHTable.randPlotIV">
+<code class="sig-name descname">randPlotIV</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rho</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">5</span></em>, <em class="sig-param"><span class="n">repeat</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">100000</span></em>, <em class="sig-param"><span class="n">label</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Data Set IV'</span></em>, <em class="sig-param"><span class="n">less</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">return_extr</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/analysis.html#PHTable.randPlotIV"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.analysis.PHTable.randPlotIV" title="Permalink to this definition">¶</a></dt>
+<dd><p>T versus E plot for Data Set IV or IV’ (IV_less).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rho</strong> (<em>int</em><em>, </em><em>optional</em>) – Constant parameter in the test function, by default 5.</p></li>
+<li><p><strong>repeat</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of random samples, by default 100000.</p></li>
+<li><p><strong>label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label in the plot, by default ‘Data Set IV’.</p></li>
+<li><p><strong>less</strong> (<em>bool</em><em>, </em><em>optional</em>) – Plot for Data Set IV_less or IV.</p></li>
+<li><p><strong>return_extr</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to return the extrama, by default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>return fig, and dict of extrama (if any).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple of (matplotlib.figure.Figure, None or dict)</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#grb.lat.analysis.PHTable.TEPlot" title="grb.lat.analysis.PHTable.TEPlot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TEPlot()</span></code></a></dt><dd><p>T versus E plot for individual data set.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.analysis.PHTable.regPlot">
+<code class="sig-name descname">regPlot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">binmethod</span><span class="o">=</span><span class="default_value">array([1.0, 1.04811313, 1.09854114, 1.1513954, 1.20679264, 1.26485522, 1.32571137, 1.38949549, 1.45634848, 1.52641797, 1.59985872, 1.67683294, 1.75751062, 1.84206997, 1.93069773, 2.02358965, 2.12095089, 2.22299648, 2.32995181, 2.44205309, 2.55954792, 2.6826958, 2.8117687, 2.9470517, 3.0888436, 3.23745754, 3.39322177, 3.55648031, 3.72759372, 3.90693994, 4.09491506, 4.29193426, 4.49843267, 4.71486636, 4.94171336, 5.17947468, 5.42867544, 5.68986603, 5.96362332, 6.25055193, 6.55128557, 6.86648845, 7.19685673, 7.54312006, 7.90604321, 8.28642773, 8.68511374, 9.10298178, 9.54095476, 10.0])</span></em>, <em class="sig-param"><span class="n">figname</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/analysis.html#PHTable.regPlot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.analysis.PHTable.regPlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the histogram of Data Set I and the regression line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>binmethod</strong> (<em>numpy.ndarray</em><em>, </em><em>optional</em>) – Bin method of the histogram plot, by default np.logspace(0., 1.0).</p></li>
+<li><p><strong>figname</strong> (<em>str</em><em>, </em><em>optional</em>) – Output file name of the figure, by default ‘’ (and not output to file).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.analysis.PHTable.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">out_dir</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'../data/'</span></em>, <em class="sig-param"><span class="n">fname</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'ph-table-all'</span></em>, <em class="sig-param"><span class="n">date</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/analysis.html#PHTable.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.analysis.PHTable.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the instance as pickle format, in order to reuse the instance without repeated calculations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>out_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – Output directory, by default ‘../data/’</p></li>
+<li><p><strong>fname</strong> (<em>str</em><em>, </em><em>optional</em>) – Output file name, by default ‘ph-table-all’</p></li>
+<li><p><strong>date</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to include date in the file name, by default True</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.analysis.PHTable.scatterPlot_">
+<code class="sig-name descname">scatterPlot_</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ph_class</span></em>, <em class="sig-param"><span class="n">label</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.75</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/analysis.html#PHTable.scatterPlot_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.analysis.PHTable.scatterPlot_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Individual scatter plot for each data set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ph_class</strong> (<em>astropy.table.table.Table</em>) – All photon events.</p></li>
+<li><p><strong>label</strong> (<em>str</em>) – Label in the plot.</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em>) – Alpha of the plot, by default 0.75</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><span class="math notranslate nohighlight">\(\Delta t_{obs} / (1 + z)\)</span> versus <span class="math notranslate nohighlight">\(\kappa\)</span> plot.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.figure.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.analysis.PHTable.scatterPlots">
+<code class="sig-name descname">scatterPlots</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">labels</span><span class="o">=</span><span class="default_value">['Data Set I', 'Data Set II', 'Data Set III', 'Data Set IV', &quot;Data Set IV'&quot;]</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/analysis.html#PHTable.scatterPlots"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.analysis.PHTable.scatterPlots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scatter plots of all data sets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>labels</strong> (<em>list of str</em><em>, </em><em>optional</em>) – Labels in the plots, by default [‘Data Set ‘ + i for i in [‘I’, ‘II’, ‘III’, ‘IV’, “IV’”]]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><span class="math notranslate nohighlight">\(\Delta t_{obs} / (1 + z)\)</span> versus <span class="math notranslate nohighlight">\(\kappa\)</span> plots.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.figure.Figure</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#grb.lat.analysis.PHTable.scatterPlot_" title="grb.lat.analysis.PHTable.scatterPlot_"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scatterPlot_()</span></code></a></dt><dd><p>Individual scatter plot for each data set.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="grb.lat.analysis.Rand">
+<em class="property">class </em><code class="sig-prename descclassname">grb.lat.analysis.</code><code class="sig-name descname">Rand</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Set</span></em>, <em class="sig-param"><span class="n">Emax</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">Emin</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">power</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">E_LVs</span></em>, <em class="sig-param"><span class="n">rho</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">5</span></em>, <em class="sig-param"><span class="n">repeat</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">100000</span></em>, <em class="sig-param"><span class="n">E_LV_sz</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1000</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/analysis.html#Rand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.analysis.Rand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#grb.lat.analysis.Colname" title="grb.lat.analysis.Colname"><code class="xref py py-class docutils literal notranslate"><span class="pre">grb.lat.analysis.Colname</span></code></a></p>
+<p>Generate random samples.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Set</strong> (<em>astropy.table.table.Table</em>) – The set of GRBs.</p></li>
+<li><p><strong>Emax</strong> (<em>float</em>) – Maximum of the energy range.</p></li>
+<li><p><strong>Emin</strong> (<em>float</em>) – Minimum of the energy range.</p></li>
+<li><p><strong>power</strong> (<em>float</em>) – The parameter in the power law.</p></li>
+<li><p><strong>E_LVs</strong> (<em>numpy.ndarray</em>) – Candidate Lorentz Violation parameters.</p></li>
+<li><p><strong>rho</strong> (<em>int</em><em>, </em><em>optional</em>) – Constant rho in the test function, by default 5.</p></li>
+<li><p><strong>repeat</strong> (<em>int</em><em>, </em><em>optional</em>) – Size of random samples, by default 100000.</p></li>
+<li><p><strong>E_LV_sz</strong> (<em>int</em><em>, </em><em>optional</em>) – Size of random candidate Lorentz Violation parameters, by default 1000.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="grb.lat.analysis.Rand.Calc_Ts">
+<em class="property">static </em><code class="sig-name descname">Calc_Ts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row_len</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sz</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">rho</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">DTtsf</span></em>, <em class="sig-param"><span class="n">kappa</span></em>, <em class="sig-param"><span class="n">E_LVs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/analysis.html#Rand.Calc_Ts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.analysis.Rand.Calc_Ts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the test function T of shape (row_len, sz).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row_len</strong> (<em>int</em>) – Number of total candidate Lorentz Violation parameters; also T.shape[0].</p></li>
+<li><p><strong>sz</strong> (<em>int</em>) – Number of photon events; also T.shape[1].</p></li>
+<li><p><strong>rho</strong> (<em>int</em>) – constant rho in the test function T.</p></li>
+<li><p><strong>DTtsf</strong> (<em>numpy.ndarray</em>) – observed time over (1 + z), i.e., <span class="math notranslate nohighlight">\(\Delta T_{obs} / (1 + z)\)</span>.</p></li>
+<li><p><strong>kappa</strong> (<em>numpy.ndarray</em>) – kappa of the same shape as DTtsf.</p></li>
+<li><p><strong>E_LVs</strong> (<em>numpy.ndarray</em>) – candidate Lorentz Violation parameters</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Values of the test function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.analysis.Rand.Calc_kappa">
+<em class="property">static </em><code class="sig-name descname">Calc_kappa</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Eobs_repeat</span></em>, <em class="sig-param"><span class="n">z_repeat</span></em>, <em class="sig-param"><span class="n">Omega_m</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.315</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/analysis.html#Rand.Calc_kappa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.analysis.Rand.Calc_kappa" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return kappa caculated from observed energy and red-shift.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Eobs_repeat</strong> (<em>numpy.ndarray</em>) – Observed energy shape in (n, m), where n is the number of photon events, and m is the repeat time (m = 1 for non-repeat).</p></li>
+<li><p><strong>z_repeat</strong> (<em>numpy.ndarray</em>) – red shift of the same shape as Eobs_repeat.</p></li>
+<li><p><strong>Omega_m</strong> (<em>float</em><em>, </em><em>optional</em>) – matter density parameter in the <span class="math notranslate nohighlight">\(\Lambda\text{CDM}\)</span> model, by default 0.315, from <a class="footnote-reference brackets" href="#id4" id="id1">2</a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>kappa of the same shape as z_repeat (and Eobs_repeat).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="math notranslate nohighlight">
+\begin{equation}
+    \kappa = s \frac{E_\text{h} - E_\text{l}}{H_0} \frac{1}{(1+z)} \int_0^z \frac{(1 + z') \mathrm{d} z'}{\sqrt{\Omega_m(1 + z')^3 + \Omega_\Lambda}}
+\end{equation}</div><p>See <a class="footnote-reference brackets" href="#id4" id="id2">2</a>.</p>
+</div>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id3"><span class="brackets">1</span></dt>
+<dd><p>Planck Collaboration, Aghanim, N., Akrami, Y., Ashdown, M., Aumont, J., Baccigalupi, C., Ballardini, M., Banday, A. J., Barreiro, R. B., Bartolo, N., Basak, S., Battye, R., Benabed, K., Bernard, J.-P., Bersanelli, M., Bielewicz, P., Bock, J. J., Bond, J. R., Borrill, J., … Zonca, A. (2020). Planck 2018 results. VI. Cosmological parameters. Astronomy &amp; Astrophysics. <a class="reference external" href="https://doi.org/10.1051/0004-6361/201833910">https://doi.org/10.1051/0004-6361/201833910</a></p>
+</dd>
+<dt class="label" id="id4"><span class="brackets">2</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dd><p>Xu, H., &amp; Ma, B.-Q. (2018). Regularity of high energy photon events from gamma ray bursts. Journal of Cosmology and Astroparticle Physics, 2018(01), 050–050. <a class="reference external" href="https://doi.org/10.1088/1475-7516/2018/01/050">https://doi.org/10.1088/1475-7516/2018/01/050</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.analysis.Rand.randPlot">
+<code class="sig-name descname">randPlot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/analysis.html#Rand.randPlot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.analysis.Rand.randPlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot n-sigma regions, where n’s are 1, 3, 5.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-grb.lat.query">
+<span id="grb-lat-query-module"></span><h2>grb.lat.query module<a class="headerlink" href="#module-grb.lat.query" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="grb.lat.query.Download">
+<em class="property">class </em><code class="sig-prename descclassname">grb.lat.query.</code><code class="sig-name descname">Download</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">grbs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Download"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Download" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt id="grb.lat.query.Download.DONE">
+<code class="sig-name descname">DONE</code><em class="property"> = 'DONE'</em><a class="headerlink" href="#grb.lat.query.Download.DONE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.query.Download.Download_fits">
+<code class="sig-name descname">Download_fits</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">out_dir</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">- 1.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Download.Download_fits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Download.Download_fits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download fits files provided in urls to out_dir</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>if succeeded
+MISSING: if failed</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>DONE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.query.Download.Download_info">
+<code class="sig-name descname">Download_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span></em>, <em class="sig-param"><span class="n">out_dir</span></em>, <em class="sig-param"><span class="n">pre</span><span class="o">=</span><span class="default_value">'https://fermi.gsfc.nasa.gov/cgi-bin/ssc/LAT/QueryResults.cgi?id='</span></em>, <em class="sig-param"><span class="n">wait</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">- 1.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Download.Download_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Download.Download_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request query page in url, and save tables to out_dir</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>if succeeded
+MISSING: if failed</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>DONE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.query.Download.Filename">
+<em class="property">static </em><code class="sig-name descname">Filename</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">sep</span><span class="o">=</span><span class="default_value">'/'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Download.Filename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Download.Filename" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>input:</dt><dd><p>path: file path string
+sep: seprator for directories, default to “/” (as in Linux)</p>
+</dd>
+</dl>
+<p>return filename of the path without directories</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.query.Download.GRB_record">
+<code class="sig-name descname">GRB_record</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">col</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Download.GRB_record"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Download.GRB_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Record information for the for the given grb</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.query.Download.INFOPRE">
+<code class="sig-name descname">INFOPRE</code><em class="property"> = 'https://fermi.gsfc.nasa.gov/cgi-bin/ssc/LAT/QueryResults.cgi?id='</em><a class="headerlink" href="#grb.lat.query.Download.INFOPRE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.query.Download.MISSING">
+<code class="sig-name descname">MISSING</code><em class="property"> = &lt;NA&gt;</em><a class="headerlink" href="#grb.lat.query.Download.MISSING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.query.Download.Missing">
+<code class="sig-name descname">Missing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">col</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Download.Missing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Download.Missing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.query.Download.NAME">
+<code class="sig-name descname">NAME</code><em class="property"> = 'GCNNAME'</em><a class="headerlink" href="#grb.lat.query.Download.NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.query.Download.Query_url">
+<code class="sig-name descname">Query_url</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">period</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">E_MeV_i</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">E_MeV_f</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">trigtime</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">tpeak</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">- 1.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Download.Query_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Download.Query_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query downloading urls
+input:</p>
+<blockquote>
+<div><p>grbs: (DataFrame) GRBs
+row: row index of the given GRB
+period: period after initial time in second
+E_MeV_i: start energy in MeV
+E_MeV_fs: end energy in MeV
+trigtime: mission elapsed time in second
+tpeak: first peak time in second</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.query.Download.TBUFF">
+<code class="sig-name descname">TBUFF</code><em class="property"> = 30.0</em><a class="headerlink" href="#grb.lat.query.Download.TBUFF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.query.Download.TRIES">
+<code class="sig-name descname">TRIES</code><em class="property"> = 3</em><a class="headerlink" href="#grb.lat.query.Download.TRIES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.query.Download.Urls_resolve">
+<code class="sig-name descname">Urls_resolve</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Download.Urls_resolve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Download.Urls_resolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrive urls from record</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.query.Download.WAIT">
+<code class="sig-name descname">WAIT</code><em class="property"> = 2</em><a class="headerlink" href="#grb.lat.query.Download.WAIT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="grb.lat.query.Query">
+<em class="property">class </em><code class="sig-prename descclassname">grb.lat.query.</code><code class="sig-name descname">Query</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">grbs</span></em>, <em class="sig-param"><span class="n">out_dir</span></em>, <em class="sig-param"><span class="n">init</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">retry</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">- 1.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#grb.lat.query.Download" title="grb.lat.query.Download"><code class="xref py py-class docutils literal notranslate"><span class="pre">grb.lat.query.Download</span></code></a></p>
+<dl class="py attribute">
+<dt id="grb.lat.query.Query.EMAX">
+<code class="sig-name descname">EMAX</code><em class="property"> = 500000.0</em><a class="headerlink" href="#grb.lat.query.Query.EMAX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.query.Query.EMIN">
+<code class="sig-name descname">EMIN</code><em class="property"> = 100.0</em><a class="headerlink" href="#grb.lat.query.Query.EMIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.query.Query.FAKE">
+<code class="sig-name descname">FAKE</code><em class="property"> = 'fake'</em><a class="headerlink" href="#grb.lat.query.Query.FAKE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.query.Query.Main_loop">
+<code class="sig-name descname">Main_loop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">outer_dir</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Query.Main_loop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Query.Main_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>main loop to download all required data</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.query.Query.PERIOD">
+<code class="sig-name descname">PERIOD</code><em class="property"> = 90.0</em><a class="headerlink" href="#grb.lat.query.Query.PERIOD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.query.Query.Requery">
+<code class="sig-name descname">Requery</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Query.Requery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Query.Requery" title="Permalink to this definition">¶</a></dt>
+<dd><p>remove queried urls and run Main_loop for missing grbs</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.query.Query.Reset">
+<code class="sig-name descname">Reset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">init</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Query.Reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Query.Reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>reset urls of grbs with missing fits or info</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.query.Query.Row_index">
+<code class="sig-name descname">Row_index</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Query.Row_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Query.Row_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return index of the given name</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.query.Query.TIMESYS">
+<code class="sig-name descname">TIMESYS</code><em class="property"> = 'MET'</em><a class="headerlink" href="#grb.lat.query.Query.TIMESYS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.query.Query.Which_missing">
+<code class="sig-name descname">Which_missing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Query.Which_missing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Query.Which_missing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.query.Query._Which_missing">
+<code class="sig-name descname">_Which_missing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Query._Which_missing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Query._Which_missing" title="Permalink to this definition">¶</a></dt>
+<dd><p>print missing information</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-grb.lat">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-grb.lat" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="jupytext.html" class="btn btn-neutral float-left" title="Jupytext" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Memcys
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

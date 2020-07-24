@@ -1,0 +1,549 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>lat.query &mdash; Fermi GRB Analysis  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> Fermi GRB Analysis
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jupytext.html">Jupytext</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Fermi GRB Analysis</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>lat.query</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for lat.query</h1><div class="highlight"><pre>
+<span></span><span class="c1"># ## Query data</span>
+
+<span class="c1"># Scientific Library</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Requests Urls and Manupilate Files</span>
+
+<span class="kn">from</span> <span class="nn">astropy.utils.data</span> <span class="kn">import</span> <span class="n">download_files_in_parallel</span><span class="p">,</span> <span class="n">download_file</span>
+<span class="kn">from</span> <span class="nn">astroquery</span> <span class="kn">import</span> <span class="n">fermi</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="c1"># import pathlib</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+
+<span class="c1"># Logging</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="c1"># logger_info = logging.getLogger().setLevel(logging.INFO)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+
+<span class="c1"># from retry import retry</span>
+<span class="kn">from</span> <span class="nn">retry.api</span> <span class="kn">import</span> <span class="n">retry_call</span>
+
+<span class="c1"># See https://stackoverflow.com/questions/492519/timeout-on-a-function-call</span>
+<span class="kn">import</span> <span class="nn">signal</span>
+
+
+<div class="viewcode-block" id="Download"><a class="viewcode-back" href="../../lat.html#lat.query.Download">[docs]</a><span class="k">class</span> <span class="nc">Download</span><span class="p">:</span>
+    <span class="n">MISSING</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">NA</span>
+    <span class="n">NAME</span> <span class="o">=</span> <span class="s1">&#39;GCNNAME&#39;</span>
+    <span class="n">DONE</span> <span class="o">=</span> <span class="s1">&#39;DONE&#39;</span>
+    <span class="n">WAIT</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">TBUFF</span> <span class="o">=</span> <span class="mf">30.</span>
+    <span class="n">INFOPRE</span> <span class="o">=</span> <span class="s2">&quot;https://fermi.gsfc.nasa.gov/cgi-bin/ssc/LAT/QueryResults.cgi?id=&quot;</span>
+    <span class="n">TRIES</span> <span class="o">=</span> <span class="mi">3</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grbs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span> <span class="o">=</span> <span class="n">grbs</span>
+            
+<div class="viewcode-block" id="Download.Filename"><a class="viewcode-back" href="../../lat.html#lat.query.Download.Filename">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="c1"># Transform a method into a static method. A static method does not receive an implicit first argument.</span>
+    <span class="c1"># https://docs.python.org/3/library/functions.html#staticmethod</span>
+    <span class="k">def</span> <span class="nf">Filename</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        input:</span>
+<span class="sd">            path: file path string</span>
+<span class="sd">            sep: seprator for directories, default to &quot;/&quot; (as in Linux)</span>
+
+<span class="sd">        return filename of the path without directories</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">path</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="n">sep</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Download.GRB_record"><a class="viewcode-back" href="../../lat.html#lat.query.Download.GRB_record">[docs]</a>    <span class="k">def</span> <span class="nf">GRB_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Record information for the for the given grb&#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fail to record: &quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">value</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="Download.Missing"><a class="viewcode-back" href="../../lat.html#lat.query.Download.Missing">[docs]</a>    <span class="k">def</span> <span class="nf">Missing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">res</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="Download.Urls_resolve"><a class="viewcode-back" href="../../lat.html#lat.query.Download.Urls_resolve">[docs]</a>    <span class="k">def</span> <span class="nf">Urls_resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Retrive urls from record&#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">urls</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="s1">&#39;urls&#39;</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">urls</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fail to resolve urls: &quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">_repr_html_</span><span class="p">)</span></div>
+        
+        
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    functions for single DataFrame GRB</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Download.Query_url"><a class="viewcode-back" href="../../lat.html#lat.query.Download.Query_url">[docs]</a>    <span class="k">def</span> <span class="nf">Query_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">period</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">E_MeV_i</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">E_MeV_f</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">trigtime</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tpeak</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span><span class="o">=-</span><span class="mf">1.</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Query downloading urls</span>
+<span class="sd">        input:</span>
+<span class="sd">            grbs: (DataFrame) GRBs</span>
+<span class="sd">            row: row index of the given GRB</span>
+<span class="sd">            period: period after initial time in second</span>
+<span class="sd">            E_MeV_i: start energy in MeV</span>
+<span class="sd">            E_MeV_fs: end energy in MeV</span>
+<span class="sd">            trigtime: mission elapsed time in second</span>
+<span class="sd">            tpeak: first peak time in second</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;urls&#39;</span>
+        <span class="n">timesys</span> <span class="o">=</span> <span class="s1">&#39;MET&#39;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">NAME</span><span class="p">]</span>
+        
+        <span class="n">missing</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Missing</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">missing</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">query already done&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">9</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">DONE</span>
+        
+        <span class="n">grb_name</span> <span class="o">=</span> <span class="s1">&#39;GRB&#39;</span> <span class="o">+</span> <span class="n">name</span>
+        <span class="n">met_i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">trigtime</span><span class="p">]</span>
+        <span class="n">delta_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">tpeak</span><span class="p">]</span>
+        <span class="n">met_f</span> <span class="o">=</span> <span class="n">met_i</span> <span class="o">+</span> <span class="n">delta_t</span> <span class="o">+</span> <span class="n">period</span>    <span class="c1"># &quot;window of 90 seconds&quot; as apears in XHW2018.</span>
+        
+        <span class="n">start</span> <span class="o">=</span> <span class="n">met_i</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">TBUFF</span>
+        <span class="n">stop</span> <span class="o">=</span> <span class="n">met_f</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">TBUFF</span>
+        <span class="n">met</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+        <span class="n">E_MeV</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">E_MeV_i</span><span class="p">,</span> <span class="n">E_MeV_f</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">timeout</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">signal</span><span class="o">.</span><span class="n">alarm</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">fits_urls</span> <span class="o">=</span> <span class="n">retry_call</span><span class="p">(</span>
+                <span class="n">fermi</span><span class="o">.</span><span class="n">FermiLAT</span><span class="o">.</span><span class="n">query_object</span><span class="p">,</span>
+                <span class="n">fargs</span><span class="o">=</span><span class="p">[</span><span class="n">grb_name</span><span class="p">],</span>
+                <span class="n">fkwargs</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s1">&#39;energyrange_MeV&#39;</span><span class="p">:</span> <span class="n">E_MeV</span><span class="p">,</span>
+                    <span class="s1">&#39;obsdates&#39;</span><span class="p">:</span> <span class="n">met</span><span class="p">,</span>
+                    <span class="s1">&#39;timesys&#39;</span><span class="p">:</span> <span class="n">timesys</span><span class="p">},</span>
+                <span class="n">tries</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">TRIES</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">GRB_record</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MISSING</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">Query_url failed while receiving:</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">9</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">MISSING</span>
+        
+        <span class="c1">#! save urls (list) as str; Please extract urls with eval() later</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">GRB_record</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">fits_urls</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">query finished&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">9</span><span class="p">))</span></div>
+<span class="c1">#         return self.DONE</span>
+        
+<div class="viewcode-block" id="Download.Download_fits"><a class="viewcode-back" href="../../lat.html#lat.query.Download.Download_fits">[docs]</a>    <span class="k">def</span> <span class="nf">Download_fits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span><span class="o">=-</span><span class="mf">1.</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Download fits files provided in urls to out_dir</span>
+<span class="sd">        </span>
+<span class="sd">        return:</span>
+<span class="sd">            DONE: if succeeded</span>
+<span class="sd">            MISSING: if failed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">urls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Urls_resolve</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="c1">#         urls = eval(self.grbs.at[row, &#39;urls&#39;])</span>
+        <span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;fits&#39;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">NAME</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">Missing</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">fits already saved&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">9</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">DONE</span>
+        
+        <span class="k">if</span> <span class="n">timeout</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">signal</span><span class="o">.</span><span class="n">alarm</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
+<span class="c1">#         for url in urls:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">file_list</span> <span class="o">=</span> <span class="n">retry_call</span><span class="p">(</span>
+                <span class="c1"># astropy.utils.data.download_files_in_parallel</span>
+                <span class="n">download_files_in_parallel</span><span class="p">,</span>
+                <span class="n">fargs</span><span class="o">=</span><span class="p">[</span><span class="n">urls</span><span class="p">],</span>
+                <span class="n">tries</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">TRIES</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">file_list</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">:</span>
+                    <span class="n">file_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">retry_call</span><span class="p">(</span>
+                        <span class="c1"># astropy.utils.data.download_file</span>
+                        <span class="n">download_file</span><span class="p">,</span>
+                        <span class="n">fargs</span><span class="o">=</span><span class="p">[</span><span class="n">url</span><span class="p">],</span>
+                        <span class="n">tries</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">TRIES</span><span class="p">)</span>
+                    <span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">GRB_record</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MISSING</span><span class="p">)</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">while downloading fits got:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">9</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;urls failed to download: &quot;</span><span class="p">,</span> <span class="n">urls</span><span class="p">)</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">MISSING</span>
+
+        <span class="c1"># Following https://stackoverflow.com/questions/12517451/automatically-creating-directories-with-file-output</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">url</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">urls</span><span class="p">):</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Filename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">out_dir</span> <span class="o">/</span> <span class="n">filename</span>
+            <span class="c1"># filename = out_dir + &quot;/&quot; + filename</span>
+
+            <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="k">continue</span>
+
+            <span class="k">try</span><span class="p">:</span>
+<span class="c1">#                 filename2 = wget.download(url, out_dir)</span>
+                <span class="c1"># Following https://stackoverflow.com/questions/7243750/download-file-from-web-in-python-3</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">file_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">filename</span><span class="p">)</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">filename</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39; saved&#39;</span><span class="p">)</span>
+<span class="c1">#                 logging.info(filename + &#39; saved as &#39; + filename2)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">GRB_record</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">DONE</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">DONE</span></div>
+    
+<div class="viewcode-block" id="Download.Download_info"><a class="viewcode-back" href="../../lat.html#lat.query.Download.Download_info">[docs]</a>    <span class="k">def</span> <span class="nf">Download_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="n">INFOPRE</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="n">WAIT</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span><span class="o">=-</span><span class="mf">1.</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Request query page in url, and save tables to out_dir</span>
+<span class="sd">        </span>
+<span class="sd">        return:</span>
+<span class="sd">            DONE: if succeeded</span>
+<span class="sd">            MISSING: if failed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;info&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">Missing</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">NAME</span><span class="p">]</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">info already saved&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">9</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">DONE</span>
+        
+        <span class="n">urls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Urls_resolve</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="c1">#         urls = self.grbs.at[row, &#39;urls&#39;]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">urls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">urls missing&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">9</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">MISSING</span>
+        
+        <span class="n">ID</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Filename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">query_url</span> <span class="o">=</span> <span class="n">pre</span> <span class="o">+</span> <span class="n">ID</span>
+        <span class="n">wait_times</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="k">if</span> <span class="n">timeout</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">signal</span><span class="o">.</span><span class="n">alarm</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">retry_call</span><span class="p">(</span>
+                <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span>
+                <span class="n">fargs</span><span class="o">=</span><span class="p">[</span><span class="n">query_url</span><span class="p">],</span>
+                <span class="n">tries</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">TRIES</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">GRB_record</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MISSING</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">query page downloading failed&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">9</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">MISSING</span>
+
+        <span class="n">query_info</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">dfs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="n">query_info</span><span class="p">)</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="n">dfs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">position_in_queue</span> <span class="o">=</span> <span class="n">status</span><span class="p">[</span><span class="s1">&#39;Position in Queue&#39;</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">position_in_queue</span> <span class="o">!=</span> <span class="s1">&#39;Query complete&#39;</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">Query incomplete.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">9</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">MISSING</span>
+        
+        <span class="k">else</span><span class="p">:</span>        
+            <span class="n">criteria</span> <span class="o">=</span> <span class="n">dfs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">out_dir</span> <span class="o">/</span> <span class="s1">&#39;criteria.csv&#39;</span>
+            <span class="c1"># filename = out_dir + &#39;/criteria.csv&#39;</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">criteria</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+            <span class="n">info</span> <span class="o">=</span> <span class="n">dfs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">out_dir</span> <span class="o">/</span> <span class="s1">&#39;info.csv&#39;</span>
+            <span class="c1"># filename = out_dir + &#39;/info.csv&#39;</span>
+            <span class="n">info</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">GRB_record</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">DONE</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">query page downloaded&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">9</span><span class="p">))</span>
+            
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">DONE</span></div></div>
+
+
+<div class="viewcode-block" id="Query"><a class="viewcode-back" href="../../lat.html#lat.query.Query">[docs]</a><span class="k">class</span> <span class="nc">Query</span><span class="p">(</span><span class="n">Download</span><span class="p">):</span>
+    <span class="n">FAKE</span> <span class="o">=</span> <span class="s1">&#39;fake&#39;</span>
+    <span class="n">PERIOD</span> <span class="o">=</span> <span class="mf">90.</span>
+    <span class="n">EMIN</span> <span class="o">=</span> <span class="mf">1e2</span>    <span class="c1"># 1e3 MeV / 10, as 1 + z &lt; 10</span>
+    <span class="n">EMAX</span> <span class="o">=</span> <span class="mf">5e5</span>    <span class="c1"># The highest energy available in LAT</span>
+    <span class="n">TIMESYS</span> <span class="o">=</span> <span class="s1">&#39;MET&#39;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grbs</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">retry</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span><span class="o">=-</span><span class="mf">1.</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span> <span class="o">=</span> <span class="n">grbs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">=</span> <span class="n">out_dir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init</span> <span class="o">=</span> <span class="n">init</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="n">timeout</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">init</span> <span class="o">!=</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Reset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">init</span><span class="p">)</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">Main_loop</span><span class="p">(</span><span class="n">outer_dir</span><span class="o">=</span><span class="n">out_dir</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">retry</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Which_missing</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Querying for missing information&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Requery</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">_repr_html_</span><span class="p">()</span>
+    
+<div class="viewcode-block" id="Query.Row_index"><a class="viewcode-back" href="../../lat.html#lat.query.Query.Row_index">[docs]</a>    <span class="k">def</span> <span class="nf">Row_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Return index of the given name&#39;&#39;&#39;</span>
+        <span class="n">index_np</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">NAME</span><span class="p">]</span> <span class="o">==</span> <span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">index_np</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">index</span></div>
+            
+<div class="viewcode-block" id="Query._Which_missing"><a class="viewcode-back" href="../../lat.html#lat.query.Query._Which_missing">[docs]</a>    <span class="k">def</span> <span class="nf">_Which_missing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;print missing information&quot;&quot;&quot;</span>
+        <span class="n">urls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="p">[</span><span class="s1">&#39;urls&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+        <span class="n">fits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="p">[</span><span class="s1">&#39;fits&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+        
+        <span class="n">where</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">,</span> <span class="p">[</span><span class="n">urls</span><span class="p">,</span> <span class="n">fits</span><span class="p">,</span> <span class="n">info</span><span class="p">])</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">where</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="se">\n</span><span class="si">{}</span><span class="s2"> GRB</span><span class="si">{}</span><span class="s2"> missing&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">15</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span> <span class="k">if</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Please Run .Requery() with(out) .Reset(init) for several times.</span><span class="se">\n</span><span class="s2">If those do not help, please download missing files manually.&quot;</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">where</span></div>
+    
+<div class="viewcode-block" id="Query.Which_missing"><a class="viewcode-back" href="../../lat.html#lat.query.Query.Which_missing">[docs]</a>    <span class="k">def</span> <span class="nf">Which_missing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_Which_missing</span><span class="p">()]</span></div>
+        
+<div class="viewcode-block" id="Query.Main_loop"><a class="viewcode-back" href="../../lat.html#lat.query.Query.Main_loop">[docs]</a>    <span class="k">def</span> <span class="nf">Main_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outer_dir</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;main loop to download all required data&quot;&quot;&quot;</span>        
+        <span class="n">period</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">PERIOD</span>
+        <span class="n">E_MeV_i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMIN</span>
+        <span class="n">E_MeV_f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAX</span>
+        <span class="n">timesys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TIMESYS</span>
+        <span class="n">row_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">index</span>
+        
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">row_index</span><span class="p">):</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">NAME</span><span class="p">]</span>
+            <span class="n">urls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="s1">&#39;urls&#39;</span><span class="p">]</span>
+            <span class="n">out_dir</span> <span class="o">=</span> <span class="n">outer_dir</span> <span class="o">/</span> <span class="n">name</span><span class="p">[:</span><span class="mi">6</span><span class="p">]</span>
+            <span class="c1"># out_dir = outer_dir + &#39;/&#39; + name[:6]</span>
+            <span class="n">timeout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span><span class="p">)</span>
+<span class="c1">#             status = self.Query_url(row=row, period=period, E_MeV_i=E_MeV_i, E_MeV_f=E_MeV_f, trigtime=&#39;GBM_MET&#39;, tpeak=&#39;tpeak_ref&#39;)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Query_url</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="n">period</span><span class="p">,</span> <span class="n">E_MeV_i</span><span class="o">=</span><span class="n">E_MeV_i</span><span class="p">,</span> <span class="n">E_MeV_f</span><span class="o">=</span><span class="n">E_MeV_f</span><span class="p">,</span> <span class="n">trigtime</span><span class="o">=</span><span class="s1">&#39;GBM_MET&#39;</span><span class="p">,</span> <span class="n">tpeak</span><span class="o">=</span><span class="s1">&#39;tpeak_ref&#39;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="s1">&#39;urls&#39;</span><span class="p">]</span>
+        
+            <span class="k">if</span> <span class="n">status</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">MISSING</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Download_info</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Download_fits</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+        
+        <span class="n">rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Which_missing</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># pretty printing in jupyter-notebook, following https://stackoverflow.com/questions/19124601/pretty-print-an-entire-pandas-series-dataframe</span>
+            <span class="n">display</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">rows</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Congratulations! All information downloaded successfully&quot;</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="Query.Reset"><a class="viewcode-back" href="../../lat.html#lat.query.Query.Reset">[docs]</a>    <span class="k">def</span> <span class="nf">Reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;reset urls of grbs with missing fits or info&quot;&quot;&quot;</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Which_missing</span><span class="p">()</span> <span class="k">if</span> <span class="n">init</span><span class="o">==</span><span class="kc">False</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">rows</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;urls&#39;</span><span class="p">,</span> <span class="s1">&#39;fits&#39;</span><span class="p">,</span> <span class="s1">&#39;info&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MISSING</span></div>
+        
+<div class="viewcode-block" id="Query.Requery"><a class="viewcode-back" href="../../lat.html#lat.query.Query.Requery">[docs]</a>    <span class="k">def</span> <span class="nf">Requery</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;remove queried urls and run Main_loop for missing grbs&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Main_loop</span><span class="p">(</span><span class="n">outer_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Memcys
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

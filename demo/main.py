@@ -7,7 +7,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.5.1
+#       jupytext_version: 1.5.2
 #   kernelspec:
 #     display_name: Python 3.8.3 64-bit
 #     language: python
@@ -31,8 +31,8 @@ import matplotlib.pyplot as plt
 # ---------------
 
 # %%
-from pkg.config import path
-from pkg.lat.analysis import PHTable
+from grb.config import path
+from grb.lat.analysis import PHTable
 
 # %% [markdown]
 # Load Information

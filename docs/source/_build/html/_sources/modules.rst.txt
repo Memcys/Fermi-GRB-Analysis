@@ -1,0 +1,7 @@
+Fermi-GRB-Analysis
+==================
+
+.. toctree::
+   :maxdepth: 4
+
+   setup
