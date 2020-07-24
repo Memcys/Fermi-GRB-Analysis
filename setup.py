@@ -23,23 +23,31 @@ for key, value in d.items():
 d['ROOT'] = ROOT
 
 while True:
-    key = input("\nPlease type the name (ROOT, FITS, TABLE, or IMAGE) to modify:\n(type 'c' or Enter to finish and continue)\n")
-    if key == 'c' or key == '':
+    try:
+        key = input("\nPlease type the name (ROOT, FITS, TABLE, or IMAGE) to modify:\n(type 'c' or Enter to finish and continue)\n")
+        if key == 'c' or key == '':
+            break
+        elif key == 'ROOT':
+            ROOT = input("Please assign the ROOT absolute path:\n")
+            d[key] = f"Path('{ROOT}')"
+            # check if ROOT exists:
+            if not eval(d[key]).exists:
+                logging.warning(f"{ROOT} not exists!\n")
+        elif key in d.keys():
+            # key is one of 'FITS', 'TABLES' and 'IMAGES'
+            datapath = input("Please assign the data path relative to ROOT (e.g., data/new):\n")
+            d[key] = 'ROOT / ' + f"'{datapath}'"
+            # check if datapath exists:
+            newpath = d['ROOT'] + '/' + datapath
+            if not Path(newpath).exists:
+                logging.warning(f"{datapath} not exists!\n")
+    except EOFError:
+        # Handle the EOFError in readthedocs.org
         break
-    elif key == 'ROOT':
-        ROOT = input("Please assign the ROOT absolute path:\n")
-        d[key] = f"Path('{ROOT}')"
-        # check if ROOT exists:
-        if not eval(d[key]).exists:
-            logging.warning(f"{ROOT} not exists!\n")
-    elif key in d.keys():
-        # key is one of 'FITS', 'TABLES' and 'IMAGES'
-        datapath = input("Please assign the data path relative to ROOT (e.g., data/new):\n")
-        d[key] = 'ROOT / ' + f"'{datapath}'"
-        # check if datapath exists:
-        newpath = d['ROOT'] + '/' + datapath
-        if not Path(newpath).exists:
-            logging.warning(f"{datapath} not exists!\n")
+    except Exception as exception:
+        # Output unexpected Exceptions.
+        logging.warning(exception)
+        break
 
 pathlist = list(d.keys())
 # read all lines
