@@ -1,3 +1,7 @@
+"""
+This module deals with LAT analysis: calculus, statistics, and data visualization.
+"""
+
 from __future__ import unicode_literals
 
 import numpy as np

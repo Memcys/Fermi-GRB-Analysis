@@ -30,13 +30,21 @@ File Tree
       data (goal 1)
 
 -  ``docs``: documentation for the repo
+
+   -  ``source``: source file for
+      `sphinx <https://www.sphinx-doc.org>`__
+   -  ``_build``: documents built by ``sphinx``
+
+      -  ``html``: documents formatted in ``html`` built by ``sphinx``.
+         Please open ``index.html`` with any web browser you like
+
 -  ``grb``: Python namespace package
 
    -  ``config``: submodule for configuration
 
       -  ’path.py`: for unified paths for root, data, tables and images
-      -  ``__init__.py``: necessary file to make ``grb`` a `namespace
-         package <https://docs.python.org/3/tutorial/modules.html#packages>`__
+      -  ``__init__.py``: necessary file to make ``grb`` a
+         `package <https://docs.python.org/3/tutorial/modules.html#packages>`__
 
    -  ``lat``: submodule for *Fermi* LAT analysis
 
@@ -44,6 +52,8 @@ File Tree
       -  ``query.py``: for requests of *Fermi* LAT
       -  ``__init__.py``
 
+-  ``mkconfig.py``: modify ``grb/config/path.py`` as needed; called by
+   ``setup.py``
 -  ``setup.py``: setup script to install the packag ``grb``
 
 [1]: Xu, H., & Ma, B.-Q. (2018). Regularity of high energy photon events

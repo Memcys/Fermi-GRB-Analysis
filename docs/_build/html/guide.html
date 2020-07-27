@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Jupytext &mdash; Fermi GRB Analysis  documentation</title>
+  <title>Guide Usage &mdash; Fermi GRB Analysis  documentation</title>
   
 
   
@@ -38,8 +38,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="FITS File Handling" href="fits.html" />
-    <link rel="prev" title="Setup" href="setup.html" /> 
+    <link rel="next" title="grb.lat package" href="grb.lat.html" />
+    <link rel="prev" title="Data Source" href="data.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -88,9 +88,10 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Jupytext</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jupytext.html">Jupytext</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fits.html">FITS File Handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data.html">Data Source</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Guide Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="grb.lat.html">grb.lat package</a></li>
 </ul>
 
@@ -138,13 +139,13 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Jupytext</li>
+      <li>Guide Usage</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/jupytext.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/guide.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -157,26 +158,37 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="jupytext">
-<h1>Jupytext<a class="headerlink" href="#jupytext" title="Permalink to this headline">¶</a></h1>
-<p>Scripts under the <code class="docutils literal notranslate"><span class="pre">demo</span></code> directory are uploaded as <code class="docutils literal notranslate"><span class="pre">.py</span></code> files for
-better version control. However, it is recommended to view (and run)
-these demo scripts as <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> files.
-<a class="reference external" href="https://jupytext.readthedocs.io/en/latest/">Jupytext</a> does the job
-well. Example usage:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Turn notebook.ipynb into a paired ipynb/py notebook</span>
-<span class="n">jupytext</span> <span class="o">--</span><span class="nb">set</span><span class="o">-</span><span class="n">formats</span> <span class="n">py</span><span class="p">,</span><span class="n">ipynb</span> <span class="n">query</span><span class="o">-</span><span class="n">LAT</span><span class="o">.</span><span class="n">py</span>
-<span class="c1"># Update whichever of notebook.ipynb/notebook.py is outdated</span>
-<span class="n">jupytext</span> <span class="o">--</span><span class="n">sync</span> <span class="n">query</span><span class="o">-</span><span class="n">LAT</span><span class="o">.</span><span class="n">py</span>
+  <div class="section" id="guide-usage">
+<h1>Guide Usage<a class="headerlink" href="#guide-usage" title="Permalink to this headline">¶</a></h1>
+<p>The detailed code of this guide can be seen in <code class="docutils literal notranslate"><span class="pre">demo/main.py</span></code>.</p>
+<p>Suppose you have the required FITS data under the directory assigned by
+<code class="docutils literal notranslate"><span class="pre">grb.config.path.FITS</span></code>. Other required information</p>
+<ul class="simple">
+<li><p>GRB/GCN name</p></li>
+<li><p>GBM MET (reference time)</p></li>
+<li><p>first low peak time (relative to the reference time)</p></li>
+<li><p>red shift</p></li>
+</ul>
+<p>are in <code class="docutils literal notranslate"><span class="pre">grb.config.path.TABLE</span> <span class="pre">/</span> <span class="pre">&quot;query-results-latest.h5&quot;</span></code> and named
+“table”.</p>
+<p>Follow these steps to perform the analysis.</p>
+<ol class="arabic simple">
+<li><p>Instantiate the <code class="docutils literal notranslate"><span class="pre">PHTable</span></code>.</p></li>
+<li><p>Run the method <code class="docutils literal notranslate"><span class="pre">regPlot</span></code> to obtain the power parameter in the power
+law.</p></li>
+<li><p>Manually assign the primed class IV (classIV_less). However, this
+primed class is actually ommitable in my analysis.</p></li>
+<li><p>Run one of the method <code class="docutils literal notranslate"><span class="pre">randPlotI</span></code>, <code class="docutils literal notranslate"><span class="pre">randPlotII</span></code>, <code class="docutils literal notranslate"><span class="pre">randPlotIII</span></code>,
+or <code class="docutils literal notranslate"><span class="pre">randPlotIV</span></code> to generate required number (via <code class="docutils literal notranslate"><span class="pre">repeat</span></code>) of
+samples and plot the results.</p></li>
+</ol>
+<p>Note that you may use the Python function <code class="docutils literal notranslate"><span class="pre">dir</span></code> to list all available
+attributes of any Python objects. For example,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">grb.lat.analysis</span> <span class="kn">import</span> <span class="n">PHTable</span>
+
+<span class="nb">dir</span><span class="p">(</span><span class="n">PHTable</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>or if you prefer to convert all <code class="docutils literal notranslate"><span class="pre">.py</span></code> under the working directory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupytext</span> <span class="o">--</span><span class="n">to</span> <span class="n">ipynb</span> <span class="o">*.</span><span class="n">py</span>
-</pre></div>
-</div>
-<p>Please see the
-<a class="reference external" href="https://jupytext.readthedocs.io/en/latest/using-cli.html">documentation</a>
-for details.</p>
 </div>
 
 
@@ -187,10 +199,10 @@ for details.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="fits.html" class="btn btn-neutral float-right" title="FITS File Handling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="grb.lat.html" class="btn btn-neutral float-right" title="grb.lat package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="setup.html" class="btn btn-neutral float-left" title="Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="data.html" class="btn btn-neutral float-left" title="Data Source" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

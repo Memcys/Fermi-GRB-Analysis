@@ -1,4 +1,7 @@
-# configurations for directory paths
+"""
+This module aims to provide the unified paths for ROOT and data files.
+"""
+
 # Please assign YOUR paths (on or before installing pkg)
 from pathlib import Path
 

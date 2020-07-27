@@ -1,0 +1,319 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Data Source &mdash; Fermi GRB Analysis  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="grb.lat package" href="grb.lat.html" />
+    <link rel="prev" title="FITS File Handling" href="fits.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Fermi GRB Analysis
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jupytext.html">Jupytext</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fits.html">FITS File Handling</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Source</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lat-data">LAT Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gbm-tte-data">GBM TTE Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#red-shifts">Red shifts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="grb.lat.html">grb.lat package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Fermi GRB Analysis</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Data Source</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/data.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="data-source">
+<h1>Data Source<a class="headerlink" href="#data-source" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 34%" />
+<col style="width: 27%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Type</p></th>
+<th class="head"><p>Usage</p></th>
+<th class="head"><p>Source</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>GRB/GCN name</p></td>
+<td><p>Request and downloading FITS files</p></td>
+<td><p>See <a class="reference external" href="#lat-data">below</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>GRB red shift</p></td>
+<td><p>Calculation</p></td>
+<td><p>See <a class="reference external" href="#red-shifts">below</a></p></td>
+</tr>
+<tr class="row-even"><td><p>First low peak time of GBM TTE</p></td>
+<td><p>Reference time</p></td>
+<td><p>GBM TTE FITS header</p></td>
+</tr>
+<tr class="row-odd"><td><p>Observed time and energy of LAT photons</p></td>
+<td><p>Calculation</p></td>
+<td><p>LAT FITS header</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="lat-data">
+<h2>LAT Data<a class="headerlink" href="#lat-data" title="Permalink to this headline">¶</a></h2>
+<p>This project requires information of photon events detected by <em>Large
+Area Telegram</em>. The <a class="reference external" href="https://fermi.gsfc.nasa.gov/cgi-bin/ssc/LAT/LATDataQuery.cgi">data
+server</a>
+currently provides Pass 8 (P8R3) data. There are at least two ways to
+query the required LAT FITS files: 1. Manually input information about a
+LAT GRB in the <a class="reference external" href="https://fermi.gsfc.nasa.gov/cgi-bin/ssc/LAT/LATDataQuery.cgi">data
+server</a>
+2. Use the package <code class="docutils literal notranslate"><span class="pre">fermi</span></code> provided by <code class="docutils literal notranslate"><span class="pre">astroquery</span></code> to query the
+information.</p>
+<p><code class="docutils literal notranslate"><span class="pre">demo/query-LAT.py</span></code> is the demo script to query and download LAT FITS
+files making use of <code class="docutils literal notranslate"><span class="pre">astroquery</span></code>.</p>
+<p><a class="reference external" href="https://fermi.gsfc.nasa.gov/ssc/observations/types/grbs/lat_grbs/table.php">This
+webpage</a>
+lists all Fermi LAT Gamma-Ray Bursts (GRBs) from 080825C to 180720B.
+Note that the field “Object name or coordinates” in the <a class="reference external" href="https://fermi.gsfc.nasa.gov/cgi-bin/ssc/LAT/LATDataQuery.cgi">data
+server</a>
+corresponds to the <code class="docutils literal notranslate"><span class="pre">GCN</span> <span class="pre">Name</span></code> in the table.</p>
+<p>Downloaded FITS files are assumed to be saved under the directory
+assigned by <code class="docutils literal notranslate"><span class="pre">grb.config.path.FITS</span></code>, which is by default <code class="docutils literal notranslate"><span class="pre">data/fits/</span></code>
+relative to the root directory.</p>
+<p>LAT FITS files that I used have been released
+<a class="reference external" href="https://github.com/Memcys/LAT-GRB-data/releases">here</a>. Please
+download a release file and extraced to <code class="docutils literal notranslate"><span class="pre">data/fits/</span></code> such that it
+looks like: - data/fits/ - 080916/ - criteria.csv - info.csv -
+L200408135242F357373F23_PH00.fits - L200408135242F357373F23_SC00.fits -
+090323/ - … - …</p>
+</div>
+<div class="section" id="gbm-tte-data">
+<h2>GBM TTE Data<a class="headerlink" href="#gbm-tte-data" title="Permalink to this headline">¶</a></h2>
+<p>This project does not perform a GBM analysis. There are, however, some
+<em>dirty</em> scripts that try to do such an anlysis, which assumes that GBM
+TTE FITS files for a certain GRB be located under its GRB directory. For
+example, - data/fits/ - 080916/ - criteria.csv - info.csv -
+L200408135242F357373F23_PH00.fits - L200408135242F357373F23_SC00.fits -
+TTE/ - glg_tte_b0_bn080916009_v01.fit - glg_tte_b1_bn080916009_v01.fit -
+glg_tte_n0_bn080916009_v01.fit - … - glg_tte_nb_bn080916009_v01.fit - …</p>
+<p><code class="docutils literal notranslate"><span class="pre">.fit</span></code> files can be equally treated as <code class="docutils literal notranslate"><span class="pre">.fits</span></code>.</p>
+<p>To query or download the GBM TTE files, there are at least two ways: 1.
+Search in the <a class="reference external" href="https://heasarc.gsfc.nasa.gov/db-perl/W3Browse/w3table.pl?tablehead=name%3Dfermigtrig&amp;Action=More+Options">Fermi GBM Trigger Catalog
+(fermi)</a>.
+2. Suppose the trigger name of a GRB is known. Then the FITS file may be
+downloaded in:
+<a class="reference external" href="https://heasarc.gsfc.nasa.gov/FTP/fermi/data/gbm/triggers/yyyy/bnyymmddfff/current/glg_tte_xN_bnyymmddfff_vzz.fit">https://heasarc.gsfc.nasa.gov/FTP/fermi/data/gbm/triggers/yyyy/bnyymmddfff/current/glg_tte_xN_bnyymmddfff_vzz.fit</a>,
+where <code class="docutils literal notranslate"><span class="pre">yyyy</span></code> is the year, <code class="docutils literal notranslate"><span class="pre">yymmdd</span></code> the Year-Month-Date, <code class="docutils literal notranslate"><span class="pre">fff</span></code> the
+fraction of a day, <code class="docutils literal notranslate"><span class="pre">x</span></code> in <code class="docutils literal notranslate"><span class="pre">b</span></code> (for BGO) or <code class="docutils literal notranslate"><span class="pre">n</span></code> (for NaI), <code class="docutils literal notranslate"><span class="pre">N</span></code>
+the hexadecimal (<code class="docutils literal notranslate"><span class="pre">b</span></code>: 0-1, <code class="docutils literal notranslate"><span class="pre">n</span></code>: 0-b), <code class="docutils literal notranslate"><span class="pre">zz</span></code> the version (typically
+<code class="docutils literal notranslate"><span class="pre">00</span></code> or <code class="docutils literal notranslate"><span class="pre">01</span></code>). Note that <code class="docutils literal notranslate"><span class="pre">yymmddfff</span></code> corresponds to the column
+“GRB”. See
+<a class="reference external" href="https://fermi.gsfc.nasa.gov/ssc/library/support/Science_DP_FFD_RevA.pdf">here</a>
+for details.</p>
+</div>
+<div class="section" id="red-shifts">
+<h2>Red shifts<a class="headerlink" href="#red-shifts" title="Permalink to this headline">¶</a></h2>
+<p>Red shifts can be obtained in the <a class="reference external" href="http://gcn.gsfc.nasa.gov/gcn3_archive.html">GCN Circular
+Archive</a> or
+<a class="reference external" href="http://www.mpe.mpg.de/~jcg/grbgen.html">here</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="grb.lat.html" class="btn btn-neutral float-right" title="grb.lat package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="fits.html" class="btn btn-neutral float-left" title="FITS File Handling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Memcys
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -14,6 +14,10 @@ This is the documentation for the repo https://github.com/Memcys/Fermi-GRB-Analy
    introduction
    setup
    jupytext
+   fits
+   data
+   guide
+   docs
    grb.lat
 
 

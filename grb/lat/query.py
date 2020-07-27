@@ -1,4 +1,6 @@
-# ## Query data
+"""
+This module deals with querying and downloading LAT FITS files.
+"""
 
 # Scientific Library
 

@@ -93,6 +93,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="jupytext.html">Jupytext</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fits.html">FITS File Handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data Source</a></li>
 <li class="toctree-l1"><a class="reference internal" href="grb.lat.html">grb.lat package</a></li>
 </ul>
 
@@ -189,14 +191,25 @@ data visualization (goals 2 and 3)</p></li>
 data (goal 1)</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">docs</span></code>: documentation for the repo</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docs</span></code>: documentation for the repo</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">source</span></code>: source file for
+<a class="reference external" href="https://www.sphinx-doc.org">sphinx</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_build</span></code>: documents built by <code class="docutils literal notranslate"><span class="pre">sphinx</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">html</span></code>: documents formatted in <code class="docutils literal notranslate"><span class="pre">html</span></code> built by <code class="docutils literal notranslate"><span class="pre">sphinx</span></code>.
+Please open <code class="docutils literal notranslate"><span class="pre">index.html</span></code> with any web browser you like</p></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><p><code class="docutils literal notranslate"><span class="pre">grb</span></code>: Python namespace package</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">config</span></code>: submodule for configuration</p>
 <ul>
 <li><p>’path.py`: for unified paths for root, data, tables and images</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>: necessary file to make <code class="docutils literal notranslate"><span class="pre">grb</span></code> a <a class="reference external" href="https://docs.python.org/3/tutorial/modules.html#packages">namespace
-package</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>: necessary file to make <code class="docutils literal notranslate"><span class="pre">grb</span></code> a
+<a class="reference external" href="https://docs.python.org/3/tutorial/modules.html#packages">package</a></p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">lat</span></code>: submodule for <em>Fermi</em> LAT analysis</p>
@@ -208,6 +221,8 @@ package</a></p></li>
 </li>
 </ul>
 </li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mkconfig.py</span></code>: modify <code class="docutils literal notranslate"><span class="pre">grb/config/path.py</span></code> as needed; called by
+<code class="docutils literal notranslate"><span class="pre">setup.py</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">setup.py</span></code>: setup script to install the packag <code class="docutils literal notranslate"><span class="pre">grb</span></code></p></li>
 </ul>
 <p>[1]: Xu, H., &amp; Ma, B.-Q. (2018). Regularity of high energy photon events

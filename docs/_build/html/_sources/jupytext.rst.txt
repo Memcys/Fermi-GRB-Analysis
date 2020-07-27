@@ -14,6 +14,12 @@ well. Example usage:
    # Update whichever of notebook.ipynb/notebook.py is outdated
    jupytext --sync query-LAT.py
 
+or if you prefer to convert all ``.py`` under the working directory:
+
+::
+
+   jupytext --to ipynb *.py
+
 Please see the
 `documentation <https://jupytext.readthedocs.io/en/latest/using-cli.html>`__
 for details.

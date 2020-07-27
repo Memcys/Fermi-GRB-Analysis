@@ -10,7 +10,7 @@
 #   kernelspec:
 #     display_name: Python 3.8.3 64-bit
 #     language: python
-#     name: python38364bitb790c22c1a684c1eac40ecab49941293
+#     name: python38364bit425a2724ae224223ab43e7c3d3663fd5
 # ---
 
 # General references:
@@ -48,6 +48,16 @@ f.info()
 
 # Select Needed Data
 # ------------------
+# `PRIMARY` contains general information about the GRB.
+
+header = f[0].header
+header
+
+# See [Time in *Fermi* Data Analysis](https://fermi.gsfc.nasa.gov/ssc/data/analysis/documentation/Cicerone/Cicerone_Data/Time_in_ScienceTools.html#:~:text=The%20Fermitools%20use%20mission%20elapsed%20time%20%28MET%29%2C%20the,the%20UTC%20system.%20Time%20Systems%20in%20a%20Nutshell) for help in `MET`.
+
+MET = header['MJDREFI'] + header['MJDREFF']
+MET
+
 # `EVENTS` contains the (photons or spacecraft) events information
 
 data = f[1].data
@@ -59,7 +69,7 @@ data
 t = Table(data)
 t
 
-# Close Any Opened File
+# Close The Opened File
 # ---------------------
 # Always remember to close the opened file.
 
