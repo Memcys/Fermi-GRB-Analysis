@@ -1,8 +1,9 @@
 
 # Fermi GRB Analysis
-
 本项目试图复现文献 <cite>[Xu2018][1]</cite> 中的步骤。
 
+![MIT License](https://img.shields.io/github/license/Memcys/Fermi-GRB-Analysis?label=LICENSE&logo=MIT)
+![GitHub repo size](https://img.shields.io/github/repo-size/Memcys/Fermi-GRB-Analysis)
 
 项目文件说明
 ===========
@@ -22,6 +23,7 @@
         - `analysis.py`: 数据分析和可视化的具体实现
         - `query.py`: 用于下载 *Fermi* LAT 数据
         - `__init__.py`
+- `mkconfig.py`： 配置 `grb/config/path.py` 的文件；被 `setup.py` 调用
 - `setup.py`: 安装本地包 `grb` 的设置文件
 
 `data/fits` 中的数据可由 `demo/query-LAT.py` 下载保存。示例中的数据可以从 https://github.com/Memcys/LAT-GRB-data 或其 [release](https://github.com/Memcys/LAT-GRB-data/releases/) 下载。下载（并解压）后可以通过 `cp` 或 `ln` 放入本项目的 `data/fits` 文件夹中。
@@ -102,9 +104,9 @@ jupyter lab /path/to/wherever/you/like
 ## 待办
 - [x] 添加必要的 [docstring](https://numpydoc.readthedocs.io/en/latest/format.html)
 - [x] 使用 sphinx 构建程序说明文档
-- [ ] 在 [Read the Docs](https://readthedocs.org) 上在线发布该文档（与本 GitHub repo 关联）
-- [ ] 程序有待中使用的部分中间数据文件的生成方式已被抹去，待补充
-- [ ] 利用 [sphinx](https://www.sphinx-doc.org) 构建本说明文档的使用说明
+- [ ] （构建失败）在 [Read the Docs](https://readthedocs.org) 上在线发布该文档（与本 GitHub repo 关联）
+- [ ] ~~程序中有待使用的部分中间数据文件的生成方式已被抹去，待补充~~
+- [x] 利用 [sphinx](https://www.sphinx-doc.org) 构建本说明文档的使用说明
 
 参考文献
 =======
