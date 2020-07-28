@@ -80,7 +80,7 @@ class Rand(Colname):
         z_repeat : numpy.ndarray
             red shift of the same shape as Eobs_repeat.
         Omega_m : float, optional
-            matter density parameter in the :math:`\Lambda\text{CDM}` model, by default 0.315, from [2]_.
+            matter density parameter in the :math:`\Lambda\text{CDM}` model, by default 0.315, from [1]_.
 
         Returns
         -------

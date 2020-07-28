@@ -20,7 +20,7 @@ import sphinx_rtd_theme
 project = 'Fermi GRB Analysis'
 copyright = '2020, Memcys'
 author = 'Memcys'
-
+version = '0.7.28'          # 28 July, 2020
 
 # -- General configuration ---------------------------------------------------
 
@@ -49,7 +49,7 @@ language = 'en'
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-# exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'modules.rst']
 
 
 # -- Options for HTML output -------------------------------------------------

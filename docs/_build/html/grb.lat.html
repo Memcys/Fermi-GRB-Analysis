@@ -61,6 +61,10 @@
           
             
             
+              <div class="version">
+                0.7.28
+              </div>
+            
           
 
           
@@ -594,7 +598,7 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>Eobs_repeat</strong> (<em>numpy.ndarray</em>) – Observed energy shape in (n, m), where n is the number of photon events, and m is the repeat time (m = 1 for non-repeat).</p></li>
 <li><p><strong>z_repeat</strong> (<em>numpy.ndarray</em>) – red shift of the same shape as Eobs_repeat.</p></li>
-<li><p><strong>Omega_m</strong> (<em>float</em><em>, </em><em>optional</em>) – matter density parameter in the <span class="math notranslate nohighlight">\(\Lambda\text{CDM}\)</span> model, by default 0.315, from <a class="footnote-reference brackets" href="#id4" id="id1">2</a>.</p></li>
+<li><p><strong>Omega_m</strong> (<em>float</em><em>, </em><em>optional</em>) – matter density parameter in the <span class="math notranslate nohighlight">\(\Lambda\text{CDM}\)</span> model, by default 0.315, from <a class="footnote-reference brackets" href="#id3" id="id1">1</a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -613,10 +617,10 @@
 </div>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id3"><span class="brackets">1</span></dt>
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>Planck Collaboration, Aghanim, N., Akrami, Y., Ashdown, M., Aumont, J., Baccigalupi, C., Ballardini, M., Banday, A. J., Barreiro, R. B., Bartolo, N., Basak, S., Battye, R., Benabed, K., Bernard, J.-P., Bersanelli, M., Bielewicz, P., Bock, J. J., Bond, J. R., Borrill, J., … Zonca, A. (2020). Planck 2018 results. VI. Cosmological parameters. Astronomy &amp; Astrophysics. <a class="reference external" href="https://doi.org/10.1051/0004-6361/201833910">https://doi.org/10.1051/0004-6361/201833910</a></p>
 </dd>
-<dt class="label" id="id4"><span class="brackets">2</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
 <dd><p>Xu, H., &amp; Ma, B.-Q. (2018). Regularity of high energy photon events from gamma ray bursts. Journal of Cosmology and Astroparticle Physics, 2018(01), 050–050. <a class="reference external" href="https://doi.org/10.1088/1475-7516/2018/01/050">https://doi.org/10.1088/1475-7516/2018/01/050</a></p>
 </dd>
 </dl>
@@ -646,14 +650,20 @@
 <dl class="py method">
 <dt id="grb.lat.query.Download.Download_fits">
 <code class="sig-name descname">Download_fits</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">out_dir</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">- 1.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Download.Download_fits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Download.Download_fits" title="Permalink to this definition">¶</a></dt>
-<dd><p>Download fits files provided in urls to out_dir</p>
+<dd><p>Download fits files provided in urls and save to out_dir.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>if succeeded
-MISSING: if failed</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em>) – Row index of the given GRB.</p></li>
+<li><p><strong>out_dir</strong> (<em>[</em><em>type</em><em>]</em>) – Output directory for FITS file.</p></li>
+<li><p><strong>timeout</strong> (<em>float</em><em>, </em><em>optional</em>) – Time for timeout in second, by default -1 (no timeout).</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>DONE</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>self.DONE: if succeeded; self.MISSING: if failed</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>self.DONE or self.MISSING</p>
 </dd>
 </dl>
 </dd></dl>
@@ -661,14 +671,22 @@ MISSING: if failed</p>
 <dl class="py method">
 <dt id="grb.lat.query.Download.Download_info">
 <code class="sig-name descname">Download_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span></em>, <em class="sig-param"><span class="n">out_dir</span></em>, <em class="sig-param"><span class="n">pre</span><span class="o">=</span><span class="default_value">'https://fermi.gsfc.nasa.gov/cgi-bin/ssc/LAT/QueryResults.cgi?id='</span></em>, <em class="sig-param"><span class="n">wait</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">- 1.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Download.Download_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Download.Download_info" title="Permalink to this definition">¶</a></dt>
-<dd><p>Request query page in url, and save tables to out_dir</p>
+<dd><p>Request query page in url, and save tables to out_dir.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>if succeeded
-MISSING: if failed</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em>) – Row index of the given GRB.</p></li>
+<li><p><strong>out_dir</strong> (<em>str</em>) – Output directory for FITS file.</p></li>
+<li><p><strong>pre</strong> (<em>str</em><em>, </em><em>optional</em>) – prefix in url, by default INFOPRE</p></li>
+<li><p><strong>wait</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>optional</em>) – Wait time in second, by default WAIT</p></li>
+<li><p><strong>timeout</strong> (<em>float</em><em>, </em><em>optional</em>) – Time for timeout in second, by default -1 (no timeout).</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>DONE</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>self.DONE: if succeeded; self.MISSING: if failed</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>self.DONE or self.MISSING</p>
 </dd>
 </dl>
 </dd></dl>
@@ -676,18 +694,36 @@ MISSING: if failed</p>
 <dl class="py method">
 <dt id="grb.lat.query.Download.Filename">
 <em class="property">static </em><code class="sig-name descname">Filename</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">sep</span><span class="o">=</span><span class="default_value">'/'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Download.Filename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Download.Filename" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>input:</dt><dd><p>path: file path string
-sep: seprator for directories, default to “/” (as in Linux)</p>
+<dd><p>Retrieve the file name (without directory) from a full path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – Path to a GRB FITS file.</p></li>
+<li><p><strong>sep</strong> (<em>str</em><em>, </em><em>optional</em>) – Seperator of directory, by default ‘/’ (in Unix).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>File name without directory.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
-<p>return filename of the path without directories</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="grb.lat.query.Download.GRB_record">
 <code class="sig-name descname">GRB_record</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">col</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Download.GRB_record"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Download.GRB_record" title="Permalink to this definition">¶</a></dt>
-<dd><p>Record information for the for the given grb</p>
+<dd><p>Record information for the for the given grb.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em>) – Row index of the given GRB.</p></li>
+<li><p><strong>col</strong> (<em>str</em>) – Colume index of the given GRB.</p></li>
+<li><p><strong>value</strong> – Any value to save to the unit.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -703,7 +739,22 @@ sep: seprator for directories, default to “/” (as in Linux)</p>
 <dl class="py method">
 <dt id="grb.lat.query.Download.Missing">
 <code class="sig-name descname">Missing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">col</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Download.Missing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Download.Missing" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Check if the data in the give unit is missing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em>) – Row index of the given GRB.</p></li>
+<li><p><strong>col</strong> (<em>str</em>) – Colume index of the given GRB.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if missing; else, False.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt id="grb.lat.query.Download.NAME">
@@ -713,17 +764,20 @@ sep: seprator for directories, default to “/” (as in Linux)</p>
 <dl class="py method">
 <dt id="grb.lat.query.Download.Query_url">
 <code class="sig-name descname">Query_url</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">period</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">E_MeV_i</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">E_MeV_f</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">trigtime</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">tpeak</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">- 1.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Download.Query_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Download.Query_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Query downloading urls
-input:</p>
-<blockquote>
-<div><p>grbs: (DataFrame) GRBs
-row: row index of the given GRB
-period: period after initial time in second
-E_MeV_i: start energy in MeV
-E_MeV_fs: end energy in MeV
-trigtime: mission elapsed time in second
-tpeak: first peak time in second</p>
-</div></blockquote>
+<dd><p>Query urls for downloading.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em>) – Row index of the given GRB.</p></li>
+<li><p><strong>period</strong> (<em>float</em>) – Period after initial time in second.</p></li>
+<li><p><strong>E_MeV_i</strong> (<em>float</em>) – Start energy in MeV.</p></li>
+<li><p><strong>E_MeV_f</strong> (<em>float</em>) – End energy in MeV.</p></li>
+<li><p><strong>trigtime</strong> (<em>str</em>) – Mission Elapsed Time in second.</p></li>
+<li><p><strong>tpeak</strong> (<em>str</em>) – First low peak time in second.</p></li>
+<li><p><strong>timeout</strong> (<em>float</em><em>, </em><em>optional</em>) – Time for timeout in second, by default -1 (no timeout).</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -739,7 +793,18 @@ tpeak: first peak time in second</p>
 <dl class="py method">
 <dt id="grb.lat.query.Download.Urls_resolve">
 <code class="sig-name descname">Urls_resolve</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Download.Urls_resolve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Download.Urls_resolve" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrive urls from record</p>
+<dd><p>Retrive urls from the given row.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>row</strong> (<em>int</em>) – Row index of the given GRB.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Urls for a given LAT GRB FITS photon (PH) and spacecraft (SC) files.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of str, or None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -771,7 +836,12 @@ tpeak: first peak time in second</p>
 <dl class="py method">
 <dt id="grb.lat.query.Query.Main_loop">
 <code class="sig-name descname">Main_loop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">outer_dir</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Query.Main_loop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Query.Main_loop" title="Permalink to this definition">¶</a></dt>
-<dd><p>main loop to download all required data</p>
+<dd><p>Main loop to download all required data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>outer_dir</strong> (<em>pathlib.PosixPath</em>) – Output directory.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -782,13 +852,18 @@ tpeak: first peak time in second</p>
 <dl class="py method">
 <dt id="grb.lat.query.Query.Requery">
 <code class="sig-name descname">Requery</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Query.Requery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Query.Requery" title="Permalink to this definition">¶</a></dt>
-<dd><p>remove queried urls and run Main_loop for missing grbs</p>
+<dd><p>Remove queried urls and run Main_loop for missing grbs.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="grb.lat.query.Query.Reset">
 <code class="sig-name descname">Reset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">init</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Query.Reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Query.Reset" title="Permalink to this definition">¶</a></dt>
-<dd><p>reset urls of grbs with missing fits or info</p>
+<dd><p>Initialize urls of grbs with missing fits or info.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>init</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to initialize the table, by default False.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -805,12 +880,29 @@ tpeak: first peak time in second</p>
 <dl class="py method">
 <dt id="grb.lat.query.Query.Which_missing">
 <code class="sig-name descname">Which_missing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Query.Which_missing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Query.Which_missing" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Find GRBs with missing information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>GRBs with missing information.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pandas.DataFrame or astropy.table.table.Table</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="grb.lat.query.Query._Which_missing">
 <code class="sig-name descname">_Which_missing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/query.html#Query._Which_missing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.query.Query._Which_missing" title="Permalink to this definition">¶</a></dt>
-<dd><p>print missing information</p>
+<dd><p>Find locations of missing information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Where the information is missing, the location of it will be True.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list of bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

@@ -99,14 +99,21 @@ jupyter lab /path/to/wherever/you/like
 
 浏览说明文档
 ==========
-请使用浏览器打开文件 `docs/_build/html/index.html`.
+目前，说明文档构建了三种版本（按推荐程度降序排列）：
+
+- html
+    - 请使用浏览器打开文件 `docs/_build/html/index.html`.
+- pdf
+    - 请使用 PDF 阅读器打开文件 `docs/_build/latex/fermigrbanalysis.pdf`.
+- epub
+    - 请使用 EPUB 阅读器打开文件 `docs/_build/epub/FermiGRBAnalysis.epub`.
 
 
 ***
 ## 待办
 - [x] 添加必要的 [docstring](https://numpydoc.readthedocs.io/en/latest/format.html)
 - [x] 使用 sphinx 构建程序说明文档
-- [ ] （构建失败）在 [Read the Docs](https://readthedocs.org) 上在线发布该文档（与本 GitHub repo 关联）
+- [ ] （构建失败）~~在 [Read the Docs](https://readthedocs.org) 上在线发布该文档（与本 GitHub repo 关联）~~
 - [ ] ~~程序中有待使用的部分中间数据文件的生成方式已被抹去，待补充~~
 - [x] 利用 [sphinx](https://www.sphinx-doc.org) 构建本说明文档的使用说明
 

@@ -60,6 +60,10 @@
           
             
             
+              <div class="version">
+                0.7.28
+              </div>
+            
           
 
           
@@ -201,21 +205,38 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grbs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span> <span class="o">=</span> <span class="n">grbs</span>
             
-<div class="viewcode-block" id="Download.Filename"><a class="viewcode-back" href="../../../grb.lat.html#grb.lat.query.Download.Filename">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="c1"># Transform a method into a static method. A static method does not receive an implicit first argument.</span>
     <span class="c1"># https://docs.python.org/3/library/functions.html#staticmethod</span>
+<div class="viewcode-block" id="Download.Filename"><a class="viewcode-back" href="../../../grb.lat.html#grb.lat.query.Download.Filename">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">Filename</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        input:</span>
-<span class="sd">            path: file path string</span>
-<span class="sd">            sep: seprator for directories, default to &quot;/&quot; (as in Linux)</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the file name (without directory) from a full path.</span>
 
-<span class="sd">        return filename of the path without directories</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        path : str</span>
+<span class="sd">            Path to a GRB FITS file.</span>
+<span class="sd">        sep : str, optional</span>
+<span class="sd">            Seperator of directory, by default &#39;/&#39; (in Unix).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            File name without directory.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">path</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="n">sep</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="Download.GRB_record"><a class="viewcode-back" href="../../../grb.lat.html#grb.lat.query.Download.GRB_record">[docs]</a>    <span class="k">def</span> <span class="nf">GRB_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;Record information for the for the given grb&#39;&#39;&#39;</span>
+        <span class="sd">&quot;&quot;&quot;Record information for the for the given grb.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        row : int</span>
+<span class="sd">            Row index of the given GRB.</span>
+<span class="sd">        col : str</span>
+<span class="sd">            Colume index of the given GRB.</span>
+<span class="sd">        value</span>
+<span class="sd">            Any value to save to the unit.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -223,11 +244,36 @@
             <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">value</span><span class="p">)</span></div>
         
 <div class="viewcode-block" id="Download.Missing"><a class="viewcode-back" href="../../../grb.lat.html#grb.lat.query.Download.Missing">[docs]</a>    <span class="k">def</span> <span class="nf">Missing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check if the data in the give unit is missing.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        row : int</span>
+<span class="sd">            Row index of the given GRB.</span>
+<span class="sd">        col : str</span>
+<span class="sd">            Colume index of the given GRB.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if missing; else, False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="n">res</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">res</span><span class="p">)</span></div>
     
 <div class="viewcode-block" id="Download.Urls_resolve"><a class="viewcode-back" href="../../../grb.lat.html#grb.lat.query.Download.Urls_resolve">[docs]</a>    <span class="k">def</span> <span class="nf">Urls_resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;Retrive urls from record&#39;&#39;&#39;</span>
+        <span class="sd">&quot;&quot;&quot;Retrive urls from the given row.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        row : int</span>
+<span class="sd">            Row index of the given GRB.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list of str, or None</span>
+<span class="sd">            Urls for a given LAT GRB FITS photon (PH) and spacecraft (SC) files.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">urls</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="s1">&#39;urls&#39;</span><span class="p">])</span>
             <span class="k">return</span> <span class="n">urls</span>
@@ -240,15 +286,24 @@
 <span class="sd">    functions for single DataFrame GRB</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 <div class="viewcode-block" id="Download.Query_url"><a class="viewcode-back" href="../../../grb.lat.html#grb.lat.query.Download.Query_url">[docs]</a>    <span class="k">def</span> <span class="nf">Query_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">period</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">E_MeV_i</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">E_MeV_f</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">trigtime</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tpeak</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span><span class="o">=-</span><span class="mf">1.</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Query downloading urls</span>
-<span class="sd">        input:</span>
-<span class="sd">            grbs: (DataFrame) GRBs</span>
-<span class="sd">            row: row index of the given GRB</span>
-<span class="sd">            period: period after initial time in second</span>
-<span class="sd">            E_MeV_i: start energy in MeV</span>
-<span class="sd">            E_MeV_fs: end energy in MeV</span>
-<span class="sd">            trigtime: mission elapsed time in second</span>
-<span class="sd">            tpeak: first peak time in second</span>
+        <span class="sd">&quot;&quot;&quot;Query urls for downloading.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        row : int</span>
+<span class="sd">            Row index of the given GRB.</span>
+<span class="sd">        period : float</span>
+<span class="sd">            Period after initial time in second.</span>
+<span class="sd">        E_MeV_i : float</span>
+<span class="sd">            Start energy in MeV.</span>
+<span class="sd">        E_MeV_f : float</span>
+<span class="sd">            End energy in MeV.</span>
+<span class="sd">        trigtime : str</span>
+<span class="sd">            Mission Elapsed Time in second.</span>
+<span class="sd">        tpeak : str</span>
+<span class="sd">            First low peak time in second.</span>
+<span class="sd">        timeout : float, optional</span>
+<span class="sd">            Time for timeout in second, by default -1 (no timeout).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;urls&#39;</span>
         <span class="n">timesys</span> <span class="o">=</span> <span class="s1">&#39;MET&#39;</span>
@@ -289,14 +344,23 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">GRB_record</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">fits_urls</span><span class="p">))</span>
         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">query finished&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">9</span><span class="p">))</span></div>
-<span class="c1">#         return self.DONE</span>
         
 <div class="viewcode-block" id="Download.Download_fits"><a class="viewcode-back" href="../../../grb.lat.html#grb.lat.query.Download.Download_fits">[docs]</a>    <span class="k">def</span> <span class="nf">Download_fits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span><span class="o">=-</span><span class="mf">1.</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Download fits files provided in urls to out_dir</span>
+        <span class="sd">&quot;&quot;&quot;Download fits files provided in urls and save to out_dir.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        row : int</span>
+<span class="sd">            Row index of the given GRB.</span>
+<span class="sd">        out_dir : [type]</span>
+<span class="sd">            Output directory for FITS file.</span>
+<span class="sd">        timeout : float, optional</span>
+<span class="sd">            Time for timeout in second, by default -1 (no timeout).</span>
 <span class="sd">        </span>
-<span class="sd">        return:</span>
-<span class="sd">            DONE: if succeeded</span>
-<span class="sd">            MISSING: if failed</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        self.DONE or self.MISSING</span>
+<span class="sd">            self.DONE: if succeeded; self.MISSING: if failed</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">urls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Urls_resolve</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 <span class="c1">#         urls = eval(self.grbs.at[row, &#39;urls&#39;])</span>
@@ -356,11 +420,25 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">DONE</span></div>
     
 <div class="viewcode-block" id="Download.Download_info"><a class="viewcode-back" href="../../../grb.lat.html#grb.lat.query.Download.Download_info">[docs]</a>    <span class="k">def</span> <span class="nf">Download_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="n">INFOPRE</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="n">WAIT</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span><span class="o">=-</span><span class="mf">1.</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Request query page in url, and save tables to out_dir</span>
-<span class="sd">        </span>
-<span class="sd">        return:</span>
-<span class="sd">            DONE: if succeeded</span>
-<span class="sd">            MISSING: if failed</span>
+        <span class="sd">&quot;&quot;&quot;Request query page in url, and save tables to out_dir.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        row : int</span>
+<span class="sd">            Row index of the given GRB.</span>
+<span class="sd">        out_dir : str</span>
+<span class="sd">            Output directory for FITS file.</span>
+<span class="sd">        pre : str, optional</span>
+<span class="sd">            prefix in url, by default INFOPRE</span>
+<span class="sd">        wait : int or float, optional</span>
+<span class="sd">            Wait time in second, by default WAIT</span>
+<span class="sd">        timeout : float, optional</span>
+<span class="sd">            Time for timeout in second, by default -1 (no timeout).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        self.DONE or self.MISSING</span>
+<span class="sd">            self.DONE: if succeeded; self.MISSING: if failed</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;info&#39;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">Missing</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
@@ -450,7 +528,13 @@
         <span class="k">return</span> <span class="n">index</span></div>
             
 <div class="viewcode-block" id="Query._Which_missing"><a class="viewcode-back" href="../../../grb.lat.html#grb.lat.query.Query._Which_missing">[docs]</a>    <span class="k">def</span> <span class="nf">_Which_missing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;print missing information&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Find locations of missing information.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list of bool</span>
+<span class="sd">            Where the information is missing, the location of it will be True.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">urls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="p">[</span><span class="s1">&#39;urls&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
         <span class="n">fits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="p">[</span><span class="s1">&#39;fits&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
         <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
@@ -465,10 +549,23 @@
         <span class="k">return</span> <span class="n">where</span></div>
     
 <div class="viewcode-block" id="Query.Which_missing"><a class="viewcode-back" href="../../../grb.lat.html#grb.lat.query.Query.Which_missing">[docs]</a>    <span class="k">def</span> <span class="nf">Which_missing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Find GRBs with missing information.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pandas.DataFrame or astropy.table.table.Table</span>
+<span class="sd">            GRBs with missing information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_Which_missing</span><span class="p">()]</span></div>
         
 <div class="viewcode-block" id="Query.Main_loop"><a class="viewcode-back" href="../../../grb.lat.html#grb.lat.query.Query.Main_loop">[docs]</a>    <span class="k">def</span> <span class="nf">Main_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outer_dir</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;main loop to download all required data&quot;&quot;&quot;</span>        
+        <span class="sd">&quot;&quot;&quot;Main loop to download all required data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        outer_dir : pathlib.PosixPath</span>
+<span class="sd">            Output directory.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">period</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">PERIOD</span>
         <span class="n">E_MeV_i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMIN</span>
         <span class="n">E_MeV_f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">EMAX</span>
@@ -498,12 +595,18 @@
             <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Congratulations! All information downloaded successfully&quot;</span><span class="p">)</span></div>
     
 <div class="viewcode-block" id="Query.Reset"><a class="viewcode-back" href="../../../grb.lat.html#grb.lat.query.Query.Reset">[docs]</a>    <span class="k">def</span> <span class="nf">Reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;reset urls of grbs with missing fits or info&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Initialize urls of grbs with missing fits or info.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        init : bool, optional</span>
+<span class="sd">            Whether to initialize the table, by default False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Which_missing</span><span class="p">()</span> <span class="k">if</span> <span class="n">init</span><span class="o">==</span><span class="kc">False</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">index</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grbs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">rows</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;urls&#39;</span><span class="p">,</span> <span class="s1">&#39;fits&#39;</span><span class="p">,</span> <span class="s1">&#39;info&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MISSING</span></div>
         
 <div class="viewcode-block" id="Query.Requery"><a class="viewcode-back" href="../../../grb.lat.html#grb.lat.query.Query.Requery">[docs]</a>    <span class="k">def</span> <span class="nf">Requery</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;remove queried urls and run Main_loop for missing grbs&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Remove queried urls and run Main_loop for missing grbs.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Main_loop</span><span class="p">(</span><span class="n">outer_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">)</span></div></div>
 </pre></div>
 

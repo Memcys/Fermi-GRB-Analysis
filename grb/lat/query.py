@@ -43,21 +43,38 @@ class Download:
     def __init__(self, grbs):
         self.grbs = grbs
             
-    @staticmethod
     # Transform a method into a static method. A static method does not receive an implicit first argument.
     # https://docs.python.org/3/library/functions.html#staticmethod
+    @staticmethod
     def Filename(path, sep="/"):
-        """
-        input:
-            path: file path string
-            sep: seprator for directories, default to "/" (as in Linux)
+        """Retrieve the file name (without directory) from a full path.
 
-        return filename of the path without directories
+        Parameters
+        ----------
+        path : str
+            Path to a GRB FITS file.
+        sep : str, optional
+            Seperator of directory, by default '/' (in Unix).
+
+        Returns
+        -------
+        str
+            File name without directory.
         """
         return path.rsplit(sep, 1)[1]
 
     def GRB_record(self, row: int, col: str, value):
-        '''Record information for the for the given grb'''
+        """Record information for the for the given grb.
+
+        Parameters
+        ----------
+        row : int
+            Row index of the given GRB.
+        col : str
+            Colume index of the given GRB.
+        value
+            Any value to save to the unit.
+        """
         try:
             self.grbs.at[row, col] = value
         except Exception as e:
@@ -65,11 +82,36 @@ class Download:
             print(type(value), value)
         
     def Missing(self, row: int, col: str):
+        """Check if the data in the give unit is missing.
+
+        Parameters
+        ----------
+        row : int
+            Row index of the given GRB.
+        col : str
+            Colume index of the given GRB.
+
+        Returns
+        -------
+        bool
+            True if missing; else, False.
+        """        
         res = pd.isna(self.grbs.at[row, col])
         return np.any(res)
     
     def Urls_resolve(self, row):
-        '''Retrive urls from record'''
+        """Retrive urls from the given row.
+
+        Parameters
+        ----------
+        row : int
+            Row index of the given GRB.
+
+        Returns
+        -------
+        list of str, or None
+            Urls for a given LAT GRB FITS photon (PH) and spacecraft (SC) files.
+        """
         try:
             urls = eval(self.grbs.at[row, 'urls'])
             return urls
@@ -82,15 +124,24 @@ class Download:
     functions for single DataFrame GRB
     '''
     def Query_url(self, row: int, period: float, E_MeV_i: float, E_MeV_f: float, trigtime: str, tpeak: str, timeout: float=-1.):
-        """Query downloading urls
-        input:
-            grbs: (DataFrame) GRBs
-            row: row index of the given GRB
-            period: period after initial time in second
-            E_MeV_i: start energy in MeV
-            E_MeV_fs: end energy in MeV
-            trigtime: mission elapsed time in second
-            tpeak: first peak time in second
+        """Query urls for downloading.
+
+        Parameters
+        ----------
+        row : int
+            Row index of the given GRB.
+        period : float
+            Period after initial time in second.
+        E_MeV_i : float
+            Start energy in MeV.
+        E_MeV_f : float
+            End energy in MeV.
+        trigtime : str
+            Mission Elapsed Time in second.
+        tpeak : str
+            First low peak time in second.
+        timeout : float, optional
+            Time for timeout in second, by default -1 (no timeout).
         """
         col = 'urls'
         timesys = 'MET'
@@ -131,14 +182,23 @@ class Download:
         self.GRB_record(row, col, str(fits_urls))
         print(self)
         logging.info('{}query finished'.format(' ' * 9))
-#         return self.DONE
         
     def Download_fits(self, row: int, out_dir, timeout: float=-1.):
-        """Download fits files provided in urls to out_dir
+        """Download fits files provided in urls and save to out_dir.
+
+        Parameters
+        ----------
+        row : int
+            Row index of the given GRB.
+        out_dir : [type]
+            Output directory for FITS file.
+        timeout : float, optional
+            Time for timeout in second, by default -1 (no timeout).
         
-        return:
-            DONE: if succeeded
-            MISSING: if failed
+        Returns
+        -------
+        self.DONE or self.MISSING
+            self.DONE: if succeeded; self.MISSING: if failed
         """
         urls = self.Urls_resolve(row)
 #         urls = eval(self.grbs.at[row, 'urls'])
@@ -198,11 +258,25 @@ class Download:
         return self.DONE
     
     def Download_info(self, row, out_dir, pre=INFOPRE, wait=WAIT, timeout: float=-1.):
-        """Request query page in url, and save tables to out_dir
-        
-        return:
-            DONE: if succeeded
-            MISSING: if failed
+        """Request query page in url, and save tables to out_dir.
+
+        Parameters
+        ----------
+        row : int
+            Row index of the given GRB.
+        out_dir : str
+            Output directory for FITS file.
+        pre : str, optional
+            prefix in url, by default INFOPRE
+        wait : int or float, optional
+            Wait time in second, by default WAIT
+        timeout : float, optional
+            Time for timeout in second, by default -1 (no timeout).
+
+        Returns
+        -------
+        self.DONE or self.MISSING
+            self.DONE: if succeeded; self.MISSING: if failed
         """
         col = 'info'
         if not self.Missing(row, col):
@@ -292,7 +366,13 @@ class Query(Download):
         return index
             
     def _Which_missing(self):
-        """print missing information"""
+        """Find locations of missing information.
+
+        Returns
+        -------
+        list of bool
+            Where the information is missing, the location of it will be True.
+        """
         urls = self.grbs['urls'].isna()
         fits = self.grbs['fits'].isna()
         info = self.grbs['info'].isna()
@@ -307,10 +387,23 @@ class Query(Download):
         return where
     
     def Which_missing(self):
+        """Find GRBs with missing information.
+
+        Returns
+        -------
+        pandas.DataFrame or astropy.table.table.Table
+            GRBs with missing information.
+        """        
         return self.grbs[self._Which_missing()]
         
     def Main_loop(self, outer_dir):
-        """main loop to download all required data"""        
+        """Main loop to download all required data.
+
+        Parameters
+        ----------
+        outer_dir : pathlib.PosixPath
+            Output directory.
+        """
         period = self.PERIOD
         E_MeV_i = self.EMIN
         E_MeV_f = self.EMAX
@@ -340,10 +433,16 @@ class Query(Download):
             logging.info("Congratulations! All information downloaded successfully")
     
     def Reset(self, init=False):
-        """reset urls of grbs with missing fits or info"""
+        """Initialize urls of grbs with missing fits or info.
+
+        Parameters
+        ----------
+        init : bool, optional
+            Whether to initialize the table, by default False.
+        """
         rows = self._Which_missing() if init==False else self.grbs.index
         self.grbs.loc[rows, ('urls', 'fits', 'info')] = self.MISSING
         
     def Requery(self):
-        """remove queried urls and run Main_loop for missing grbs"""
+        """Remove queried urls and run Main_loop for missing grbs."""
         self.Main_loop(outer_dir=self.out_dir)
