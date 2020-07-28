@@ -9,6 +9,7 @@
 ===========
 - `data`: 设计用于存放数据图表。具体可由 `grb/config.py` 或运行 `setup.py` 时指定（参见[安装 `grb` 包](#安装-grb-包)）
 - `demo`: 使用 `grb` 的示例代码（**使用入口**）。使用时建议将 `.py` 格式转化为 `.ipynb` （参见 [Jupytext 使用说明](#Jupytext-使用说明)
+    - `fits.py`： 演示加载 FITS 文件中的数据；调用 `grb/lat/timeutils.py` 实现 UTC 和 MET 的时间转换
     - `main.py`: 调用 `grb/lat/analysis.py` 实现主要的数据分析和可视化
     - `query-LAT.py`: 调用 `grb/lat/query.py` 下载 *Fermi* LAT 数据
 - `docs`: 说明文档
@@ -22,6 +23,7 @@
     - `lat`: *Fermi* LAT 相关模块
         - `analysis.py`: 数据分析和可视化的具体实现
         - `query.py`: 用于下载 *Fermi* LAT 数据
+        - `timeutils.py`： 用于 UTC 和 MET 的时间转换
         - `__init__.py`
 - `mkconfig.py`： 配置 `grb/config/path.py` 的文件；被 `setup.py` 调用
 - `setup.py`: 安装本地包 `grb` 的设置文件

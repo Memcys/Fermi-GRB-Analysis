@@ -1,4 +1,5 @@
 from setuptools import setup, find_namespace_packages
+import mkconfig
 
 with open('README.md', 'r') as ld:
     long_description = ld.read()
@@ -6,7 +7,7 @@ with open('README.md', 'r') as ld:
 setup(
     name='grb',
 
-    version = '0.7.27',  # July 27, 2020
+    version = '0.7.28',  # July 28, 2020
 
     description='Python package for certain Fermi LAT data analysis',
     long_description=long_description,
@@ -36,7 +37,6 @@ setup(
         'tables',
         'tqdm',
     ],
-    scripts=['mkconfig.py'],
     # See Setting the zip_safe flag: https://setuptools.readthedocs.io/en/latest/setuptools.html#id31
     zip_safe=False,
 )

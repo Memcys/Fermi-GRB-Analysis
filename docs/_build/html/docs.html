@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>FITS File Handling &mdash; Fermi GRB Analysis  documentation</title>
+  <title>Build the Docs &mdash; Fermi GRB Analysis  documentation</title>
   
 
   
@@ -38,8 +38,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Data Source" href="data.html" />
-    <link rel="prev" title="Jupytext" href="jupytext.html" /> 
+    <link rel="next" title="grb.lat package" href="grb.lat.html" />
+    <link rel="prev" title="Guide Usage" href="guide.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -89,13 +89,10 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="jupytext.html">Jupytext</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">FITS File Handling</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#general-references">General references</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="fits.html">FITS File Handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data.html">Data Source</a></li>
 <li class="toctree-l1"><a class="reference internal" href="guide.html">Guide Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="docs.html">Build the Docs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Build the Docs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="grb.lat.html">grb.lat package</a></li>
 </ul>
 
@@ -143,13 +140,13 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>FITS File Handling</li>
+      <li>Build the Docs</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/fits.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/docs.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -162,34 +159,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="fits-file-handling">
-<h1>FITS File Handling<a class="headerlink" href="#fits-file-handling" title="Permalink to this headline">¶</a></h1>
-<p><em>Fermi</em> provides events (photons and spacecrafts) files in <a class="reference external" href="https://fits.gsfc.nasa.gov/fits_standard.html">FITS
-format</a>. Astropy
-provides tools to deal with FITS files.</p>
-<p>With <code class="docutils literal notranslate"><span class="pre">astropy.io.fits</span></code>, one can - retrieve information about a GRB,
-and - load recorded data.</p>
-<p>FITS is a binary format. One may get weird results to <em>directly</em> convert
-data in FITS to popular data structures such as Numpy Array or Pandas
-DataFrame. Fortunately, <code class="docutils literal notranslate"><span class="pre">astropy.table.Table</span></code> makes it easy to load
-data and then convert to Pandas DataFrame.</p>
-<p><code class="docutils literal notranslate"><span class="pre">demo/fits.py</span></code> demonstrates how to make good use of Astropy to handle
-FITS files. One may prefer to first convert it to <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> via
-<code class="docutils literal notranslate"><span class="pre">jupytext</span></code>, see <a class="reference external" href="jupytext">Jupytext</a>.</p>
-<div class="section" id="general-references">
-<h2>General references<a class="headerlink" href="#general-references" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="http://learn.astropy.org/">Learn Astropy</a></p>
-<ul>
-<li><p><a class="reference external" href="https://docs.astropy.org/en/stable/io/fits/index.html">FITS File
-Handling</a></p></li>
-<li><p><a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.table.Table.html#astropy.table.Table">Astropy
-Table</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference external" href="https://fits.gsfc.nasa.gov/fits_standard.html">FITS Standard
-Page</a></p></li>
-</ul>
+  <div class="section" id="build-the-docs">
+<h1>Build the Docs<a class="headerlink" href="#build-the-docs" title="Permalink to this headline">¶</a></h1>
+<p>Requirements (can be installed via <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sphinx</span>
+<span class="n">sphinx</span><span class="o">-</span><span class="n">rtd</span><span class="o">-</span><span class="n">theme</span>
+</pre></div>
+</div>
+<p>First, generate package API via (at ROOT directory)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sphinx</span><span class="o">-</span><span class="n">apidoc</span> <span class="o">-</span><span class="n">f</span> <span class="o">--</span><span class="n">implicit</span><span class="o">-</span><span class="n">namespaces</span> <span class="o">-</span><span class="n">o</span> <span class="n">docs</span><span class="o">/</span><span class="n">source</span> <span class="n">grb</span>
+</pre></div>
+</div>
+<p>Then build (html format) via</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sphinx</span><span class="o">-</span><span class="n">build</span> <span class="o">-</span><span class="n">b</span> <span class="n">html</span> <span class="n">docs</span><span class="o">/</span><span class="n">source</span> <span class="n">docs</span><span class="o">/</span><span class="n">_build</span><span class="o">/</span><span class="n">html</span>
+</pre></div>
+</div>
+<p>And all done.</p>
+<p>To view the output documentation, please open the file
+<code class="docutils literal notranslate"><span class="pre">docs/_build/html/index.html</span></code> with any web browser you like, e.g.,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">firefox</span> <span class="n">docs</span><span class="o">/</span><span class="n">_build</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="n">html</span>
+</pre></div>
 </div>
 </div>
 
@@ -201,10 +190,10 @@ Page</a></p></li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="data.html" class="btn btn-neutral float-right" title="Data Source" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="grb.lat.html" class="btn btn-neutral float-right" title="grb.lat package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="jupytext.html" class="btn btn-neutral float-left" title="Jupytext" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="guide.html" class="btn btn-neutral float-left" title="Guide Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -20,6 +20,14 @@ grb.lat.query module
    :undoc-members:
    :show-inheritance:
 
+grb.lat.timeutils module
+------------------------
+
+.. automodule:: grb.lat.timeutils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 Module contents
 ---------------

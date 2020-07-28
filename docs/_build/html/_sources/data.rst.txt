@@ -50,10 +50,11 @@ L200408135242F357373F23_PH00.fits - L200408135242F357373F23_SC00.fits -
 GBM TTE Data
 ------------
 
-This project does not perform a GBM analysis. There are, however, some
-*dirty* scripts that try to do such an anlysis, which assumes that GBM
-TTE FITS files for a certain GRB be located under its GRB directory. For
-example, - data/fits/ - 080916/ - criteria.csv - info.csv -
+This project does not perform a GBM analysis. There are, however, the
+reference time is choosen as the *trigger time* of GBM, and some *dirty*
+scripts that try to do such an anlysis, which assumes that GBM TTE FITS
+files for a certain GRB be located under its GRB directory. For example,
+- data/fits/ - 080916/ - criteria.csv - info.csv -
 L200408135242F357373F23_PH00.fits - L200408135242F357373F23_SC00.fits -
 TTE/ - glg_tte_b0_bn080916009_v01.fit - glg_tte_b1_bn080916009_v01.fit -
 glg_tte_n0_bn080916009_v01.fit - … - glg_tte_nb_bn080916009_v01.fit - …
@@ -62,7 +63,7 @@ glg_tte_n0_bn080916009_v01.fit - … - glg_tte_nb_bn080916009_v01.fit - …
 
 To query or download the GBM TTE files, there are at least two ways: 1.
 Search in the `Fermi GBM Trigger Catalog
-(fermi) <https://heasarc.gsfc.nasa.gov/db-perl/W3Browse/w3table.pl?tablehead=name%3Dfermigtrig&Action=More+Options>`__.
+(fermigtrig) <https://heasarc.gsfc.nasa.gov/db-perl/W3Browse/w3table.pl?tablehead=name%3Dfermigtrig&Action=More+Options>`__.
 2. Suppose the trigger name of a GRB is known. Then the FITS file may be
 downloaded in:
 https://heasarc.gsfc.nasa.gov/FTP/fermi/data/gbm/triggers/yyyy/bnyymmddfff/current/glg_tte_xN_bnyymmddfff_vzz.fit,
@@ -73,6 +74,36 @@ the hexadecimal (``b``: 0-1, ``n``: 0-b), ``zz`` the version (typically
 “GRB”. See
 `here <https://fermi.gsfc.nasa.gov/ssc/library/support/Science_DP_FFD_RevA.pdf>`__
 for details.
+
+To obtain the *trigger time*, one can
+
+-  convert the column ``trigger time`` in the query results of
+   “fermigtrig” to Fermi MET (via
+   `xTime <https://heasarc.gsfc.nasa.gov/cgi-bin/Tools/xTime/xTime.pl>`__
+   on HEASARC), or
+-  read from the header of one of the 14 TTE FITS files.
+
+Time Utils
+~~~~~~~~~~
+
+One may have to convert time between UTC and Fermi Mission Elapsed Time
+(MET). The module ``grb.lat.timeutils`` serves the purpose. (One can
+compare the results with those from
+`xTime <https://heasarc.gsfc.nasa.gov/cgi-bin/Tools/xTime/xTime.pl>`__.)
+
+Suppose one knows from the
+`fermigtrig <http://heasarc.gsfc.nasa.gov/W3Browse/fermi/fermigtrig.html>`__
+that bn160625945 has trigger time: 2016-06-25 22:40:16.275. The MET can
+be obtained with:
+
+.. code:: ipython
+
+   In [1]: from grb.lat.timeutils impot UTCMET
+   In [2]: utc = '2016-06-25 22:40:16.275'
+           UTCMET.utc2met(utc)
+   Out[2]: <Quantity 4.8858722e+08 s>
+
+Please see ``demo/fits.py`` for more examples.
 
 Red shifts
 ----------

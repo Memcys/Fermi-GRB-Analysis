@@ -38,7 +38,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="grb.lat package" href="grb.lat.html" />
+    <link rel="next" title="Guide Usage" href="guide.html" />
     <link rel="prev" title="FITS File Handling" href="fits.html" /> 
 </head>
 
@@ -93,10 +93,15 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Data Source</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lat-data">LAT Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#gbm-tte-data">GBM TTE Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gbm-tte-data">GBM TTE Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#time-utils">Time Utils</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#red-shifts">Red shifts</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="guide.html">Guide Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs.html">Build the Docs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="grb.lat.html">grb.lat package</a></li>
 </ul>
 
@@ -230,17 +235,18 @@ L200408135242F357373F23_PH00.fits - L200408135242F357373F23_SC00.fits -
 </div>
 <div class="section" id="gbm-tte-data">
 <h2>GBM TTE Data<a class="headerlink" href="#gbm-tte-data" title="Permalink to this headline">¶</a></h2>
-<p>This project does not perform a GBM analysis. There are, however, some
-<em>dirty</em> scripts that try to do such an anlysis, which assumes that GBM
-TTE FITS files for a certain GRB be located under its GRB directory. For
-example, - data/fits/ - 080916/ - criteria.csv - info.csv -
+<p>This project does not perform a GBM analysis. There are, however, the
+reference time is choosen as the <em>trigger time</em> of GBM, and some <em>dirty</em>
+scripts that try to do such an anlysis, which assumes that GBM TTE FITS
+files for a certain GRB be located under its GRB directory. For example,
+- data/fits/ - 080916/ - criteria.csv - info.csv -
 L200408135242F357373F23_PH00.fits - L200408135242F357373F23_SC00.fits -
 TTE/ - glg_tte_b0_bn080916009_v01.fit - glg_tte_b1_bn080916009_v01.fit -
 glg_tte_n0_bn080916009_v01.fit - … - glg_tte_nb_bn080916009_v01.fit - …</p>
 <p><code class="docutils literal notranslate"><span class="pre">.fit</span></code> files can be equally treated as <code class="docutils literal notranslate"><span class="pre">.fits</span></code>.</p>
 <p>To query or download the GBM TTE files, there are at least two ways: 1.
 Search in the <a class="reference external" href="https://heasarc.gsfc.nasa.gov/db-perl/W3Browse/w3table.pl?tablehead=name%3Dfermigtrig&amp;Action=More+Options">Fermi GBM Trigger Catalog
-(fermi)</a>.
+(fermigtrig)</a>.
 2. Suppose the trigger name of a GRB is known. Then the FITS file may be
 downloaded in:
 <a class="reference external" href="https://heasarc.gsfc.nasa.gov/FTP/fermi/data/gbm/triggers/yyyy/bnyymmddfff/current/glg_tte_xN_bnyymmddfff_vzz.fit">https://heasarc.gsfc.nasa.gov/FTP/fermi/data/gbm/triggers/yyyy/bnyymmddfff/current/glg_tte_xN_bnyymmddfff_vzz.fit</a>,
@@ -251,6 +257,32 @@ the hexadecimal (<code class="docutils literal notranslate"><span class="pre">b<
 “GRB”. See
 <a class="reference external" href="https://fermi.gsfc.nasa.gov/ssc/library/support/Science_DP_FFD_RevA.pdf">here</a>
 for details.</p>
+<p>To obtain the <em>trigger time</em>, one can</p>
+<ul class="simple">
+<li><p>convert the column <code class="docutils literal notranslate"><span class="pre">trigger</span> <span class="pre">time</span></code> in the query results of
+“fermigtrig” to Fermi MET (via
+<a class="reference external" href="https://heasarc.gsfc.nasa.gov/cgi-bin/Tools/xTime/xTime.pl">xTime</a>
+on HEASARC), or</p></li>
+<li><p>read from the header of one of the 14 TTE FITS files.</p></li>
+</ul>
+<div class="section" id="time-utils">
+<h3>Time Utils<a class="headerlink" href="#time-utils" title="Permalink to this headline">¶</a></h3>
+<p>One may have to convert time between UTC and Fermi Mission Elapsed Time
+(MET). The module <code class="docutils literal notranslate"><span class="pre">grb.lat.timeutils</span></code> serves the purpose. (One can
+compare the results with those from
+<a class="reference external" href="https://heasarc.gsfc.nasa.gov/cgi-bin/Tools/xTime/xTime.pl">xTime</a>.)</p>
+<p>Suppose one knows from the
+<a class="reference external" href="http://heasarc.gsfc.nasa.gov/W3Browse/fermi/fermigtrig.html">fermigtrig</a>
+that bn160625945 has trigger time: 2016-06-25 22:40:16.275. The MET can
+be obtained with:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">grb.lat.timeutils</span> <span class="n">impot</span> <span class="n">UTCMET</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">utc</span> <span class="o">=</span> <span class="s1">&#39;2016-06-25 22:40:16.275&#39;</span>
+        <span class="n">UTCMET</span><span class="o">.</span><span class="n">utc2met</span><span class="p">(</span><span class="n">utc</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">Quantity</span> <span class="mf">4.8858722e+08</span> <span class="n">s</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Please see <code class="docutils literal notranslate"><span class="pre">demo/fits.py</span></code> for more examples.</p>
+</div>
 </div>
 <div class="section" id="red-shifts">
 <h2>Red shifts<a class="headerlink" href="#red-shifts" title="Permalink to this headline">¶</a></h2>
@@ -268,7 +300,7 @@ Archive</a> or
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="grb.lat.html" class="btn btn-neutral float-right" title="grb.lat package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="guide.html" class="btn btn-neutral float-right" title="Guide Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="fits.html" class="btn btn-neutral float-left" title="FITS File Handling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

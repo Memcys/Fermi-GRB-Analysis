@@ -38,7 +38,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Data Source" href="data.html" /> 
+    <link rel="prev" title="Build the Docs" href="docs.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -90,10 +90,13 @@
 <li class="toctree-l1"><a class="reference internal" href="jupytext.html">Jupytext</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fits.html">FITS File Handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data.html">Data Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide.html">Guide Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs.html">Build the Docs</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">grb.lat package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-grb.lat.analysis">grb.lat.analysis module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-grb.lat.query">grb.lat.query module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-grb.lat.timeutils">grb.lat.timeutils module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-grb.lat">Module contents</a></li>
 </ul>
 </li>
@@ -813,6 +816,75 @@ tpeak: first peak time in second</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-grb.lat.timeutils">
+<span id="grb-lat-timeutils-module"></span><h2>grb.lat.timeutils module<a class="headerlink" href="#module-grb.lat.timeutils" title="Permalink to this headline">¶</a></h2>
+<p>This module provides utils to convert UTCMET between UTC and Fermi Mission Elapsed Time (MET).</p>
+<dl class="py class">
+<dt id="grb.lat.timeutils.UTCMET">
+<em class="property">class </em><code class="sig-prename descclassname">grb.lat.timeutils.</code><code class="sig-name descname">UTCMET</code><a class="reference internal" href="_modules/grb/lat/timeutils.html#UTCMET"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.timeutils.UTCMET" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Convert time between UTC and Fermi MET.</p>
+<dl class="py method">
+<dt id="grb.lat.timeutils.UTCMET.met2utc">
+<em class="property">static </em><code class="sig-name descname">met2utc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">met</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/timeutils.html#UTCMET.met2utc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.timeutils.UTCMET.met2utc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert Fermi MET to UTC time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>met</strong> (<em>float</em><em> or </em><em>array-like</em>) – Fermi Mission Elapsed Time in second.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Time object correspond to the input MET.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>astropy.time.core.Time</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">met</span> <span class="o">=</span> <span class="mf">488587220.275348</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">utc</span> <span class="o">=</span> <span class="n">UTCMET</span><span class="o">.</span><span class="n">met2utc</span><span class="p">(</span><span class="n">met</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">utc</span>
+<span class="go">&lt;Time object: scale=&#39;utc&#39; format=&#39;iso&#39; value=2016-06-25 22:40:16.275&gt;</span>
+</pre></div>
+</div>
+<p>To retrive the value:
+&gt;&gt;&gt; utc.value
+‘2016-06-25 22:40:16.275’</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="grb.lat.timeutils.UTCMET.t0">
+<code class="sig-name descname">t0</code><em class="property"> = &lt;Time object: scale='utc' format='iso' value=2001-01-01 00:00:00.000&gt;</em><a class="headerlink" href="#grb.lat.timeutils.UTCMET.t0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="grb.lat.timeutils.UTCMET.utc2met">
+<em class="property">static </em><code class="sig-name descname">utc2met</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">utc</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/grb/lat/timeutils.html#UTCMET.utc2met"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#grb.lat.timeutils.UTCMET.utc2met" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert UTC time to Fermi MET.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>utc</strong> (<em>str</em><em>, or </em><em>list of str</em>) – UTC time formated like <a href="#id5"><span class="problematic" id="id6">`</span></a>yyyy-mm-dd hh:mm:ss’ or so.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Fermi MET time corresponds to the the input UTC time.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>astropy.units.quantity.Quantity</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">utc</span> <span class="o">=</span> <span class="s1">&#39;2008-08-28T10:46:30.271448&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">met</span> <span class="o">=</span> <span class="n">UTCMET</span><span class="o">.</span><span class="n">utc2met</span><span class="p">(</span><span class="n">utc</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">met</span>
+<span class="go">&lt;Quantity 2.41613191e+08 s&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">met</span><span class="o">.</span><span class="n">value</span>
+<span class="go">241613191.27144802</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-grb.lat">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-grb.lat" title="Permalink to this headline">¶</a></h2>
 <p>This sub-package provides modules to query LAT FITS and perform LAT analysis.</p>
@@ -828,7 +900,7 @@ tpeak: first peak time in second</p>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="data.html" class="btn btn-neutral float-left" title="Data Source" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="docs.html" class="btn btn-neutral float-left" title="Build the Docs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

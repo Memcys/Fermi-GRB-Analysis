@@ -24,9 +24,10 @@ File Tree
    all ``.py`` to ``.ipynb`` before viewing and running. (See
    `Jupytext <jupytext#Jupytext>`__ for help.)
 
-   -  ``main.py``: use ``pkg/lat/analysis.py`` for data analysis and
+   - ``fits.py``: demo to load FITS data; call ``grb/lat/timeutils.py`` to convert time between UTC and MET
+   -  ``main.py``: call ``grb/lat/analysis.py`` for data analysis and
       data visualization (goals 2 and 3)
-   -  ``query-LAT.py``: use ``pkg/lat/query.py`` to request *Fermi* LAT
+   -  ``query-LAT.py``: call ``grb/lat/query.py`` to request *Fermi* LAT
       data (goal 1)
 
 -  ``docs``: documentation for the repo

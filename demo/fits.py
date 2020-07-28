@@ -44,7 +44,9 @@ f = fits.open(filename)
 # View File Information
 # ---------------------
 
+# + tags=[]
 f.info()
+# -
 
 # Select Needed Data
 # ------------------
@@ -55,8 +57,8 @@ header
 
 # See [Time in *Fermi* Data Analysis](https://fermi.gsfc.nasa.gov/ssc/data/analysis/documentation/Cicerone/Cicerone_Data/Time_in_ScienceTools.html#:~:text=The%20Fermitools%20use%20mission%20elapsed%20time%20%28MET%29%2C%20the,the%20UTC%20system.%20Time%20Systems%20in%20a%20Nutshell) for help in `MET`.
 
-MET = header['MJDREFI'] + header['MJDREFF']
-MET
+METREF = header['MJDREFI'] + header['MJDREFF']
+METREF
 
 # `EVENTS` contains the (photons or spacecraft) events information
 
@@ -79,9 +81,11 @@ f.close()
 # =================================
 # [`with` statement](https://docs.python.org/3/reference/compound_stmts.html#with) automatically handles open and close of files.
 
+# + tags=[]
 with fits.open(filename) as f:
     f.info()
     data2 = f[1].data
+# -
 
 # Check if the two ways get the same data
 
@@ -110,6 +114,44 @@ t3 = t[['ENERGY', 'TIME']]
 df = t3.to_pandas()
 df
 
+# + tags=[]
 print(f"{type(df) = },\n{type(t3) = }")
+# -
+
+# Application to GBM TTE FITS Files
+# =================================
+
+# + tags=[]
+ttefile = path.FITS / "160625/TTE/glg_tte_b0_bn160625945_v00.fit"
+with fits.open(ttefile) as f:
+    f.info()
+    header = f[0].header
+header
+# -
+
+# Trigger time relative to MJDREF (in second)
+
+TRIGTIME = header['TRIGTIME']
+TRIGTIME
+
+# +
+from grb.lat.timeutils import UTCMET
+
+trigtime = UTCMET.met2utc(TRIGTIME)
+trigtime
+# -
+
+trigtime.value
+
+tobs = header['DATE-OBS']
+tobs_met = UTCMET.utc2met(tobs)
+tobs_met
+
+tobs_met.value
+
+dt = trigtime - tobs_met
+dt
+
+dt.value
 
 

@@ -95,6 +95,8 @@
 <li class="toctree-l1"><a class="reference internal" href="jupytext.html">Jupytext</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fits.html">FITS File Handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data.html">Data Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide.html">Guide Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs.html">Build the Docs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="grb.lat.html">grb.lat package</a></li>
 </ul>
 
@@ -185,9 +187,10 @@ package <code class="docutils literal notranslate"><span class="pre">grb</span><
 all <code class="docutils literal notranslate"><span class="pre">.py</span></code> to <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> before viewing and running. (See
 <a class="reference external" href="jupytext#Jupytext">Jupytext</a> for help.)</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">main.py</span></code>: use <code class="docutils literal notranslate"><span class="pre">pkg/lat/analysis.py</span></code> for data analysis and
+<li><p><code class="docutils literal notranslate"><span class="pre">fits.py</span></code>: demo to load FITS data; call <code class="docutils literal notranslate"><span class="pre">grb/lat/timeutils.py</span></code> to convert time between UTC and MET</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">main.py</span></code>: call <code class="docutils literal notranslate"><span class="pre">grb/lat/analysis.py</span></code> for data analysis and
 data visualization (goals 2 and 3)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">query-LAT.py</span></code>: use <code class="docutils literal notranslate"><span class="pre">pkg/lat/query.py</span></code> to request <em>Fermi</em> LAT
+<li><p><code class="docutils literal notranslate"><span class="pre">query-LAT.py</span></code>: call <code class="docutils literal notranslate"><span class="pre">grb/lat/query.py</span></code> to request <em>Fermi</em> LAT
 data (goal 1)</p></li>
 </ul>
 </li>
