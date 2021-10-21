@@ -2,7 +2,7 @@ alabaster==0.7.12
 astropy==4.0.1.post1
 astroquery==0.4.1
 attrs==19.3.0
-Babel==2.8.0
+Babel==2.9.1
 backcall==0.2.0
 beautifulsoup4==4.9.1
 bleach==3.1.5
